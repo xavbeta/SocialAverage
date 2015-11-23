@@ -1,0 +1,15 @@
+{
+  "name": "it.uniurb/social_avg",
+  "description": "description_text",
+  "license": "proprietary",
+  "authors": [
+    {
+      "name": "Saverio Delpriori",
+      "email": "saveriodelpriori@gmail.com"
+    }
+  ],
+  "require": {
+    "slim/slim": "2.6.2",
+    "hybridauth/hybridauth": "2.5.1"
+  }
+}
