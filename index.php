@@ -11,7 +11,10 @@ error_reporting(-1);
 ini_set('display_errors', 'On');
 // Autoload
 require_once 'templates/SocialLoginTemplate.php';
+require_once 'templates/SocialSharerTemplate.php';
+
 use \SocialAverage\SocialLoginTemplate;
+use \SocialAverage\SocialSharerTemplate;
 
 require 'vendor/autoload.php';
 
@@ -46,6 +49,10 @@ $app->get('/login/:social', function ($social) use ($app) {
             SocialLoginTemplate::doInstagramLogin();
             break;
     }
+});
+
+$app->get('/share', function () {
+    echo SocialSharerTemplate::getAllSharerTemplate("no text");
 });
 
 // Run the Slim application

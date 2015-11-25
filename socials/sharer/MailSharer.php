@@ -10,7 +10,7 @@ namespace SocialAverage;
 
 require_once "SocialSharer.php";
 
-class FacebookSharer extends SocialSharer
+class MailSharer extends SocialSharer
 {
 
     /**
@@ -27,8 +27,6 @@ class FacebookSharer extends SocialSharer
 
         $encoded_url = urlencode($url);
 
-        return '<a href="https://www.facebook.com/sharer/sharer.php?u='.$encoded_url.'" '.$this->getOnClickSharerAttribute().' >'.$text.'</a>';
-
-
+        return '<a href="mailto:?&subject=Play with us&body=that\'s%20my%20value%3A'.$encoded_url.'" '.$this->getOnClickSharerAttribute().'>'.$text.'</a>';
     }
 }
