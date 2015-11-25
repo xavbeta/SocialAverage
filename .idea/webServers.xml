@@ -2,7 +2,7 @@
 <project version="4">
   <component name="WebServers">
     <option name="servers">
-      <webServer id="2c15fd71-afdb-44ca-98e5-a3fd2e0d6f06" name="SocialAverage (s-delpriori.it)" url="http:/127.0.0.1/socialaverage">
+      <webServer id="2c15fd71-afdb-44ca-98e5-a3fd2e0d6f06" name="SocialAverage (s-delpriori.it)" url="http://127.0.0.1/socialaverage">
         <fileTransfer host="ftp.s-delpriori.it" port="21" rootFolder="/www.s-delpriori.it/socialaverage" password="dfccdfc9df9cdfcbdfcfdf98dfcedf92df9ddf99" username="1562211@aruba.it">
           <advancedOptions>
             <advancedOptions dataProtectionLevel="Private" />
