@@ -8,8 +8,7 @@
 
 $loader = require 'vendor/autoload.php';
 $loader->add('SocialAverage\\', __DIR__.'/src/');
-$a = new SocialAverage\Test\Obj();
-var_dump($a);
+
 
 $c = new \SocialAverage\Socials\Sharer\TwitterSharer();
 
