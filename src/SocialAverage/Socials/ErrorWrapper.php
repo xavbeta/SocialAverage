@@ -6,7 +6,7 @@
  * Time: 16:23
  */
 
-namespace SocialAverage;
+namespace SocialAverage\Socials;
 
 
 class ErrorWrapper

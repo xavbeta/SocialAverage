@@ -6,38 +6,33 @@
  * Time: 17:45
  */
 
-namespace SocialAverage;
+namespace SocialAverage\Templates;
 
-require_once "socials/sharer/TwitterSharer.php";
-require_once "socials/sharer/FacebookSharer.php";
-require_once "socials/sharer/GoogleSharer.php";
-require_once "socials/sharer/LinkedInSharer.php";
-require_once "socials/sharer/MailSharer.php";
 
 class SocialSharerTemplate
 {
     public static function getFacebookSharer($text = "", $url = "") {
-        $sharer = new FacebookSharer();
+        $sharer = new \SocialAverage\Socials\Sharer\FacebookSharer();
         return $sharer->getSharerCode($text, $url);
     }
 
     public static function getTwitterSharer($text = "", $url = "") {
-        $sharer = new TwitterSharer();
+        $sharer = new \SocialAverage\Socials\Sharer\TwitterSharer();
         return $sharer->getSharerCode($text, $url);
     }
 
     public static function getGoogleSharer($text = "", $url = "") {
-        $sharer = new GoogleSharer();
+        $sharer = new \SocialAverage\Socials\Sharer\GoogleSharer();
         return $sharer->getSharerCode($text, $url);
     }
 
     public static function getLinkedInSharer($text = "", $url = "") {
-        $sharer = new LinkedInSharer();
+        $sharer = new \SocialAverage\Socials\Sharer\LinkedInSharer();
         return $sharer->getSharerCode($text, $url);
     }
 
     public static function getMailSharer($text = "", $url = "") {
-        $sharer = new MailSharer();
+        $sharer = new \SocialAverage\Socials\Sharer\MailSharer();
         return $sharer->getSharerCode($text, $url);
     }
 

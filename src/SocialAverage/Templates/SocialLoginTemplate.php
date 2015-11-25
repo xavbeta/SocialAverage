@@ -6,26 +6,28 @@
  * Time: 17:45
  */
 
-namespace SocialAverage;
+namespace SocialAverage\Templates;
+
+use SocialAverage\Socials\ErrorWrapper;
+use SocialAverage\Socials\FacebookLoginWrapper;
+use SocialAverage\Socials\GoogleLoginWrapper;
+use SocialAverage\Socials\InstagramLoginWrapper;
+use SocialAverage\Socials\LinkedInLoginWrapper;
+use SocialAverage\Socials\OpenIDLoginWrapper;
+use SocialAverage\Socials\TwitterLoginWrapper;
 
 require_once("vendor/hybridauth/hybridauth/hybridauth/Hybrid/Endpoint.php");
 require_once("vendor/hybridauth/hybridauth/hybridauth/Hybrid/Auth.php");
 
-require_once("socials/TwitterLoginWrapper.php");
-require_once("socials/FacebookLoginWrapper.php");
-require_once("socials/GoogleLoginWrapper.php");
-require_once("socials/OpenIDLoginWrapper.php");
-require_once("socials/LinkedInLoginWrapper.php");
-require_once("socials/InstagramLoginWrapper.php");
 
 class SocialLoginTemplate
 {
 
-    private static $config_path = "config/hybridauth_config.php";
+    private static $config_path = "Config/hybridauth_config.php";
 
     private static function handleLoginUserData($userData) {
 
-        if(!$userData instanceof \SocialAverage\ErrorWrapper){
+        if(!$userData instanceof ErrorWrapper){
             echo "<pre>".print_r($userData, true)."</pre>";
         } else {
             echo $userData->message;

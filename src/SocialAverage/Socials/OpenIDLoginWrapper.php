@@ -6,9 +6,8 @@
  * Time: 13:36
  */
 
-namespace SocialAverage;
+namespace SocialAverage\Socials;
 
-require_once ("ILoginWrapper.php");
 
 class OpenIDLoginWrapper extends  ILoginWrapper
 {

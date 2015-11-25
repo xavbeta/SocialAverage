@@ -11,5 +11,10 @@
   "require": {
     "slim/slim": "2.6.2",
     "hybridauth/hybridauth": "2.5.1"
+  },
+  "autoload": {
+    "psr-0": {
+      "SocialAverage": "src/"
+    }
   }
 }

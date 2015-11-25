@@ -6,11 +6,9 @@
  * Time: 17:05
  */
 
-namespace SocialAverage;
+namespace SocialAverage\Socials\Sharer;
 
-require_once "SocialSharer.php";
-
-class LinkedInSharer extends SocialSharer
+class MailSharer extends SocialSharer
 {
 
     /**
@@ -27,7 +25,6 @@ class LinkedInSharer extends SocialSharer
 
         $encoded_url = urlencode($url);
 
-        return '<a href="https://www.linkedin.com/shareArticle?mini=true&url='.$encoded_url.'&title='.$text.'&summary=&source=" '.$this->getOnClickSharerAttribute().'>'.$text.'</a>';
-
+        return '<a href="mailto:?&subject=Play with us&body=that\'s%20my%20value%3A'.$encoded_url.'" '.$this->getOnClickSharerAttribute().'>'.$text.'</a>';
     }
 }

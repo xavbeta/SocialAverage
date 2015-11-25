@@ -6,9 +6,7 @@
  * Time: 13:36
  */
 
-namespace SocialAverage;
-
-require_once ("ILoginWrapper.php");
+namespace SocialAverage\Socials;
 
 class FacebookLoginWrapper extends  ILoginWrapper
 {

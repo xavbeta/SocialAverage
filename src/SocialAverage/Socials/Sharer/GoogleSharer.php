@@ -6,9 +6,7 @@
  * Time: 17:05
  */
 
-namespace SocialAverage;
-
-require_once "SocialSharer.php";
+namespace SocialAverage\Socials\Sharer;
 
 class GoogleSharer extends SocialSharer
 {

@@ -6,7 +6,7 @@
  * Time: 17:03
  */
 
-namespace SocialAverage;
+namespace SocialAverage\Socials\Sharer;
 
 
 abstract class SocialSharer

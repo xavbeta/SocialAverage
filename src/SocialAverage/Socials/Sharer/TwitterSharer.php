@@ -6,11 +6,9 @@
  * Time: 17:05
  */
 
-namespace SocialAverage;
+namespace SocialAverage\Socials\Sharer;
 
-require_once "SocialSharer.php";
-
-class MailSharer extends SocialSharer
+class TwitterSharer extends SocialSharer
 {
 
     /**
@@ -27,6 +25,7 @@ class MailSharer extends SocialSharer
 
         $encoded_url = urlencode($url);
 
-        return '<a href="mailto:?&subject=Play with us&body=that\'s%20my%20value%3A'.$encoded_url.'" '.$this->getOnClickSharerAttribute().'>'.$text.'</a>';
+        return '<a href="https://twitter.com/intent/tweet?text='.$encoded_url.'&hashtags=socialavg" '.$this->getOnClickSharerAttribute().'>'.$text.'</a>';
+
     }
 }

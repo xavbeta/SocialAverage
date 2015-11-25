@@ -6,20 +6,18 @@
  * Time: 13:36
  */
 
-namespace SocialAverage;
+namespace SocialAverage\Socials;
 
-require_once ("ILoginWrapper.php");
 
-class TwitterLoginWrapper extends  ILoginWrapper
+class InstagramLoginWrapper extends  ILoginWrapper
 {
     protected function doLogin(\Hybrid_Auth $hybridauth)
     {
-        // automatically try to login with Twitter
-        return $hybridauth->authenticate("Twitter");
+        return $hybridauth->authenticate("Instagram");
     }
 
     protected function getCallbackURL($base_path)
     {
-        return $base_path."twitter";
+        return $base_path."instagram";
     }
 }

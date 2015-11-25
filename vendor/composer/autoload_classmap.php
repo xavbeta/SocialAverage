@@ -23,6 +23,7 @@ return array(
     'Hybrid_Providers_Facebook' => $vendorDir . '/hybridauth/hybridauth/hybridauth/Hybrid/Providers/Facebook.php',
     'Hybrid_Providers_Foursquare' => $vendorDir . '/hybridauth/hybridauth/hybridauth/Hybrid/Providers/Foursquare.php',
     'Hybrid_Providers_Google' => $vendorDir . '/hybridauth/hybridauth/hybridauth/Hybrid/Providers/Google.php',
+    'Hybrid_Providers_Instagram' => $vendorDir . '/hybridauth/hybridauth/hybridauth/Hybrid/Providers/Instagram.php',
     'Hybrid_Providers_LinkedIn' => $vendorDir . '/hybridauth/hybridauth/hybridauth/Hybrid/Providers/LinkedIn.php',
     'Hybrid_Providers_Live' => $vendorDir . '/hybridauth/hybridauth/hybridauth/Hybrid/Providers/Live.php',
     'Hybrid_Providers_OpenID' => $vendorDir . '/hybridauth/hybridauth/hybridauth/Hybrid/Providers/OpenID.php',

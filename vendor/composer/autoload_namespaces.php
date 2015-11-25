@@ -6,6 +6,7 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'SocialAverage' => array($baseDir . '/src'),
     'Slim' => array($vendorDir . '/slim/slim'),
     'Hybrid' => array($vendorDir . '/hybridauth/hybridauth/hybridauth'),
 );

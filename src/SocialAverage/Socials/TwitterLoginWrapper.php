@@ -6,19 +6,18 @@
  * Time: 13:36
  */
 
-namespace SocialAverage;
+namespace SocialAverage\Socials;
 
-require_once ("ILoginWrapper.php");
-
-class GoogleLoginWrapper extends  ILoginWrapper
+class TwitterLoginWrapper extends  ILoginWrapper
 {
     protected function doLogin(\Hybrid_Auth $hybridauth)
     {
-        return $hybridauth->authenticate("Google");
+        // automatically try to login with Twitter
+        return $hybridauth->authenticate("Twitter");
     }
 
     protected function getCallbackURL($base_path)
     {
-        return $base_path."google";
+        return $base_path."twitter";
     }
 }

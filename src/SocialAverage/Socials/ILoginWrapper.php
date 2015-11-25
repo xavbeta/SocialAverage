@@ -6,14 +6,13 @@
  * Time: 13:33
  */
 
-namespace SocialAverage;
+namespace SocialAverage\Socials;
 
-require_once "ErrorWrapper.php";
 
 abstract class ILoginWrapper
 {
 
-    protected static $config_path = "config/hybridauth_config.php";
+    protected static $config_path = "src/SocialAverage/Config/hybridauth_config.php";
 
     abstract protected function doLogin(\Hybrid_Auth $hybridauth);
 
@@ -41,7 +40,7 @@ abstract class ILoginWrapper
 
                 // return TRUE or False <= generally will be used to check if the user is connected to the social before getting user profile, posting stuffs, etc..
                 if(!$social->isUserConnected()) {
-                    return new \SocialAverage\ErrorWrapper("User not connected.");
+                    return new ErrorWrapper("User not connected.");
                 }
 
                 // get the user profile
@@ -61,39 +60,39 @@ abstract class ILoginWrapper
                 // Display the recived error,
                 // to know more please refer to Exceptions handling section on the userguide
 
-                $error = new \SocialAverage\ErrorWrapper("Unspecified error.");
+                $error = new ErrorWrapper("Unspecified error.");
 
                 switch ($e->getCode()) {
                     case 0 :
-                        $error = new \SocialAverage\ErrorWrapper("Unspecified error.");
+                        $error = new ErrorWrapper("Unspecified error.");
                         break;
                     case 1 :
-                        $error = new \SocialAverage\ErrorWrapper("Hybridauth configuration error.");
+                        $error = new ErrorWrapper("Hybridauth configuration error.");
                         break;
                     case 2 :
-                        $error = new \SocialAverage\ErrorWrapper("Provider not properly configured.");
+                        $error = new ErrorWrapper("Provider not properly configured.");
                         break;
                     case 3 :
-                        $error = new \SocialAverage\ErrorWrapper("Unknown or disabled provider.");
+                        $error = new ErrorWrapper("Unknown or disabled provider.");
                         break;
                     case 4 :
-                        $error = new \SocialAverage\ErrorWrapper("Missing provider application credentials.");
+                        $error = new ErrorWrapper("Missing provider application credentials.");
                         break;
                     case 5 :
-                        $error = new \SocialAverage\ErrorWrapper("Authentication failed. "
+                        $error = new ErrorWrapper("Authentication failed. "
                             . "The user has canceled the authentication or the provider refused the connection.");
                         break;
                     case 6 :
-                        $error = new \SocialAverage\ErrorWrapper("User profile request failed. Most likely the user is not connected "
+                        $error = new ErrorWrapper("User profile request failed. Most likely the user is not connected "
                             . "to the provider and he should to authenticate again.");
                         $social->logout();
                         break;
                     case 7 :
-                        $error = new \SocialAverage\ErrorWrapper("User not connected to the provider.");
+                        $error = new ErrorWrapper("User not connected to the provider.");
                         $social->logout();
                         break;
                     case 8 :
-                        $error = new \SocialAverage\ErrorWrapper("Provider does not support this feature.");
+                        $error = new ErrorWrapper("Provider does not support this feature.");
                         break;
                 }
 

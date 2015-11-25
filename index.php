@@ -7,17 +7,14 @@
  */
 
 
+use SocialAverage\Templates\SocialSharerTemplate;
+use SocialAverage\Templates\SocialLoginTemplate;
+
 error_reporting(-1);
 ini_set('display_errors', 'On');
+
 // Autoload
-require_once 'templates/SocialLoginTemplate.php';
-require_once 'templates/SocialSharerTemplate.php';
-
-use \SocialAverage\SocialLoginTemplate;
-use \SocialAverage\SocialSharerTemplate;
-
 require 'vendor/autoload.php';
-
 
 // Instantiate a Slim application
 $app = new \Slim\Slim(array(

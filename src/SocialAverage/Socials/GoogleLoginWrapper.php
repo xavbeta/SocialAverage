@@ -6,19 +6,18 @@
  * Time: 13:36
  */
 
-namespace SocialAverage;
+namespace SocialAverage\Socials;
 
-require_once ("ILoginWrapper.php");
 
-class InstagramLoginWrapper extends  ILoginWrapper
+class GoogleLoginWrapper extends  ILoginWrapper
 {
     protected function doLogin(\Hybrid_Auth $hybridauth)
     {
-        return $hybridauth->authenticate("Instagram");
+        return $hybridauth->authenticate("Google");
     }
 
     protected function getCallbackURL($base_path)
     {
-        return $base_path."instagram";
+        return $base_path."google";
     }
 }

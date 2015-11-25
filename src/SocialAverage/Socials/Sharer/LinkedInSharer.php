@@ -6,11 +6,9 @@
  * Time: 17:05
  */
 
-namespace SocialAverage;
+namespace SocialAverage\Socials\Sharer;
 
-require_once "SocialSharer.php";
-
-class TwitterSharer extends SocialSharer
+class LinkedInSharer extends SocialSharer
 {
 
     /**
@@ -27,7 +25,7 @@ class TwitterSharer extends SocialSharer
 
         $encoded_url = urlencode($url);
 
-        return '<a href="https://twitter.com/intent/tweet?text='.$encoded_url.'&hashtags=socialavg" '.$this->getOnClickSharerAttribute().'>'.$text.'</a>';
+        return '<a href="https://www.linkedin.com/shareArticle?mini=true&url='.$encoded_url.'&title='.$text.'&summary=&source=" '.$this->getOnClickSharerAttribute().'>'.$text.'</a>';
 
     }
 }
