@@ -6,6 +6,9 @@
  * Time: 21:33
  */
 
+phpinfo();
+
+
 $loader = require 'vendor/autoload.php';
 $loader->add('SocialAverage\\', __DIR__.'/src/');
 

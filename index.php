@@ -7,23 +7,39 @@
  */
 
 
+// Autoload
+require 'vendor/autoload.php';
+
+use Slim\Views\Twig;
 use SocialAverage\Templates\SocialSharerTemplate;
 use SocialAverage\Templates\SocialLoginTemplate;
 
 error_reporting(-1);
 ini_set('display_errors', 'On');
 
-// Autoload
-require 'vendor/autoload.php';
-
 // Instantiate a Slim application
 $app = new \Slim\Slim(array(
     'debug' => true
 ));
 
-$app->get('/', function () {
-    SocialLoginTemplate::getInitTemplate();
-});
+// Register component on container
+$app->container['view'] = function ($c) {
+    $view = new  Twig("templates");
+    $view->addExtension(new \Slim\Views\TwigExtension(
+        $c['router'],
+        $c['request']->getUrl()
+    ));
+
+    return $view;
+};
+
+
+$app->get('/', function ($request, $response, $args) {
+    //SocialLoginTemplate::getInitTemplate();
+
+    return $this->view->render($response, 'main.html');
+
+})->setName("index");
 
 $app->get('/login/:social', function ($social) use ($app) {
     switch($social) {
