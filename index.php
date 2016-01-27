@@ -10,9 +10,10 @@
 // Autoload
 require 'vendor/autoload.php';
 
-use Slim\Views\Twig;
+//use Slim\Views\Twig;
 use SocialAverage\Templates\SocialSharerTemplate;
 use SocialAverage\Templates\SocialLoginTemplate;
+use SocialAverage\Tokens\TokenManager;
 
 error_reporting(-1);
 ini_set('display_errors', 'On');
@@ -23,7 +24,7 @@ $app = new \Slim\Slim(array(
 ));
 
 // Register component on container
-$app->container['view'] = function ($c) {
+/*$app->container['view'] = function ($c) {
     $view = new  Twig("templates");
     $view->addExtension(new \Slim\Views\TwigExtension(
         $c['router'],
@@ -31,15 +32,22 @@ $app->container['view'] = function ($c) {
     ));
 
     return $view;
-};
+};*/
 
 
-$app->get('/', function ($request, $response, $args) {
-    //SocialLoginTemplate::getInitTemplate();
+$app->get('/', function () use ($app) {
+    SocialLoginTemplate::getInitTemplate();
 
-    return $this->view->render($response, 'main.html');
+    //return $this->view->render($response, 'main.html');
 
 })->setName("index");
+
+$app->get('/token', function () use ($app) {
+
+    $tm = new TokenManager();
+    echo $tm->getNewToken(rand(2,100));
+
+})->setName("token");
 
 $app->get('/login/:social', function ($social) use ($app) {
     switch($social) {

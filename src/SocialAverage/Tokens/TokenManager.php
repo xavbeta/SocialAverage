@@ -1,0 +1,62 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: SAVERI0
+ * Date: 13/01/2016
+ * Time: 11:27
+ */
+
+namespace SocialAverage\Tokens;
+
+use SocialAverage\Config\Configuration;
+use SocialAverage\DataBases\SocialAvgDB;
+
+class TokenManager
+{
+    private $db;
+
+    function __construct(SocialAvgDB $db = null) {
+
+        if($db == null){
+            $this->db = new SocialAvgDB(Configuration::getDefaultConfiguration());
+            $this->db->open();
+        } else {
+            $this->db = $db;
+        }
+    }
+
+    function __destruct() {
+        $this->db->close();
+    }
+
+    public function getNewToken($user_id) {
+        return $this->db->GenerateToken($user_id);
+    }
+
+    public function HasOpenToken($user_id) {
+        return $this->db->LastOpenToken($user_id) === false ? false : true;
+
+    }
+
+    public function CommitToken($token_id, $end_user_id) {
+        return $this->db->CommitToken($token_id, $end_user_id);
+    }
+
+    public function CommitUserToken($init_token_id, $end_user_id) {
+        if($init_token_id == $end_user_id){
+            throw new \InvalidArgumentException("Trying to commit a token between the same token.");
+        }
+
+        $token = $this->db->LastOpenToken($init_token_id);
+
+        if($token === false){
+            throw new \BadFunctionCallException("$init_token_id has no open token.");
+        }
+
+        return $this->CommitToken($token['token_id'], $end_user_id);
+    }
+
+    public function GetNodeHistory($node_id){
+        return $this->db->GetNodeHistory($node_id);
+    }
+}
