@@ -37,7 +37,7 @@ class SocialAvgDB {
 
     public function GenerateToken($user_id) {
 
-        $result = pg_query($this -> conn, "INSERT INTO token (user_id) VALUES ($user_id) RETURNING token_id;");
+        $result = pg_query($this -> conn, "INSERT INTO token (init_node_id) VALUES ($user_id) RETURNING token_id;");
 
         if (!$result)
             throw new \Exception("Error creating new token: " . pg_last_error($this -> conn));
@@ -47,9 +47,32 @@ class SocialAvgDB {
         return $row['token_id'];
     }
 
+	public function GetToken($token_id) {
+
+		$result = pg_query($this -> conn, "SELECT * FROM token WHERE token_id = '$token_id';");
+
+		if (!$result)
+			throw new \Exception("Error fetching token information: " . pg_last_error($this -> conn));
+
+		$row = pg_fetch_array($result);
+
+		$t = new \stdClass;
+		$t -> token_id = $row['token_id'];
+		$t -> init_node_id = $row['init_node_id'];
+		$t -> end_node_id = $row['end_node_id'];
+		$t -> created = $row['created'];
+		$t -> ended = $row['ended'];
+		$t -> init_node_value = $row['init_node_value'];
+		$t -> end_node_value = $row['end_node_value'];
+		$t -> final_init_node_value = $row['final_init_node_value'];
+		$t -> final_end_node_value = $row['final_end_node_value'];
+
+		return $t;
+	}
+
 	public function LastOpenToken($user_id) {
 
-		$result = pg_query($this -> conn, "SELECT COUNT(*) FROM token WHERE init_node_id = $user_id AND end_node_id IS NULL;;");
+		$result = pg_query($this -> conn, "SELECT COUNT(*) FROM token WHERE init_node_id = $user_id AND end_node_id IS NULL;");
 
 		if (!$result)
 			throw new \Exception("Error checking last open token: " . pg_last_error($this -> conn));

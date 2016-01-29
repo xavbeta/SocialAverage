@@ -11,9 +11,13 @@
 require 'vendor/autoload.php';
 
 //use Slim\Views\Twig;
+use SocialAverage\Inputs\InputChecker;
+use SocialAverage\SlimExtensions\ErrorHandler;
+use SocialAverage\SlimExtensions\Errors\BadRequestException;
 use SocialAverage\Templates\SocialSharerTemplate;
 use SocialAverage\Templates\SocialLoginTemplate;
 use SocialAverage\Tokens\TokenManager;
+
 
 error_reporting(-1);
 ini_set('display_errors', 'On');
@@ -42,12 +46,39 @@ $app->get('/', function () use ($app) {
 
 })->setName("index");
 
-$app->get('/token', function () use ($app) {
+$app->get('/token/:token_id', function ($token_id) use ($app) {
 
     $tm = new TokenManager();
-    echo $tm->getNewToken(rand(2,100));
 
-})->setName("token");
+    if(InputChecker::CheckTokenId($token_id)){
+        print_r($tm->GetToken($token_id));
+    } else {
+       echo "$token_id";
+       throw new BadRequestException();
+    }
+
+})->name("token")->conditions(array('token_id' => '[\w-]+'));
+
+$app->post('/token/:action)', function ($action) use ($app) {
+
+    $tm = new TokenManager();
+    echo "$action";
+    switch($action){
+        case "generate":
+            echo $tm->GetNewToken(rand(3,6));
+            break;
+        case "commit":
+            echo  $tm->CommitToken("", 3);
+            break;
+        default:
+            throw new \SocialAverage\SlimExtensions\Errors\PageNotFoundException();
+
+    }
+
+})->name("token")->conditions(array('action' => '(generate|commit)'));
+
+
+$body = $app->request->getBody();
 
 $app->get('/login/:social', function ($social) use ($app) {
     switch($social) {
@@ -74,6 +105,10 @@ $app->get('/login/:social', function ($social) use ($app) {
 
 $app->get('/share', function () {
     echo SocialSharerTemplate::getAllSharerTemplate("no text");
+});
+
+$app->error(function (\Exception $e) use ($app) {
+    ErrorHandler::Handle($e, $app);
 });
 
 // Run the Slim application

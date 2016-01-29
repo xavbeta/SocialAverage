@@ -29,8 +29,12 @@ class TokenManager
         $this->db->close();
     }
 
-    public function getNewToken($user_id) {
+    public function GetNewToken($user_id) {
         return $this->db->GenerateToken($user_id);
+    }
+
+    public function GetToken($token_id) {
+        return $this->db->GetToken($token_id);
     }
 
     public function HasOpenToken($user_id) {
