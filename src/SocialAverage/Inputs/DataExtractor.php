@@ -32,4 +32,19 @@ class DataExtractor
         return DataExtractor::ExtractField($body, 'token');
     }
 
+    public static function ExtractSocial($body)
+    {
+        return DataExtractor::ExtractField($body, 'social');
+    }
+
+    public static function ExtractAccountUsername($body)
+    {
+        return DataExtractor::ExtractField($body, 'social-username');
+    }
+
+    public static function ExtractAccountMeta($body)
+    {
+        return DataExtractor::ExtractField($body, 'social-meta');
+    }
+
 }

@@ -41,7 +41,7 @@ class NodeManager
         return $this->db->GenerateNode($newValue);
     }
 
-    public function AddAccount($node_id, SocialNetwork $social, $username, $meta = ''){
+    public function AddAccount($node_id, $social, $username, $meta = ''){
         return $this->db->AddAccount($node_id, SocialNetwork::NameToValue($social), $username, $meta);
     }
 

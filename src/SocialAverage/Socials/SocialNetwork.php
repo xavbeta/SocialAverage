@@ -9,6 +9,9 @@
 namespace SocialAverage\Socials;
 
 
+use InvalidArgumentException;
+use ReflectionClass;
+
 abstract class SocialNetwork extends BasicEnum
 {
     const Facebook = 1;
@@ -52,7 +55,7 @@ abstract class BasicEnum {
 
     public static function NameToValue($name) {
 
-        if(BasicEnum::isValidName($name)) {
+        if(self::isValidName($name)) {
             $constants = self::getConstants();
             $keys = array_map('strtolower', array_keys($constants));
             $values = array_values($constants);
@@ -60,14 +63,13 @@ abstract class BasicEnum {
 
             return $lower_constant[strtolower($name)];
         } else {
-            return FALSE;
+            throw new InvalidArgumentException();
         }
 
     }
 
     public static function ValueToName($value) {
-
-        if(BasicEnum::isValidValue($value)) {
+        if(self::isValidValue($value)) {
             $constants = self::getConstants();
             $keys = array_map('strtolower', array_keys($constants));
             $values = array_values($constants);
@@ -75,7 +77,8 @@ abstract class BasicEnum {
 
             return $lower_constant[$value];
         } else {
-            return FALSE;
+
+            throw new InvalidArgumentException();
         }
 
     }

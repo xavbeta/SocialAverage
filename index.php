@@ -17,6 +17,7 @@ use SocialAverage\Nodes\NodeManager;
 use SocialAverage\SlimExtensions\ErrorHandler;
 use SocialAverage\SlimExtensions\Errors\BadRequestException;
 use SocialAverage\SlimExtensions\Errors\PageNotFoundException;
+use SocialAverage\Socials\SocialNetwork;
 use SocialAverage\Templates\SocialSharerTemplate;
 use SocialAverage\Templates\SocialLoginTemplate;
 use SocialAverage\Tokens\TokenManager;
@@ -27,7 +28,7 @@ ini_set('display_errors', 'On');
 
 // Instantiate a Slim application
 $app = new \Slim\Slim(array(
-    'debug' => true
+    'debug' => false
 ));
 
 $app->get('/', function () use ($app) {
@@ -98,6 +99,24 @@ $app->post('/node/history', function () use ($app) {
 });
 
 $app->post('/node/addaccount', function () use ($app) {
+    $body = $app->request->getBody();
+    $nodeId = DataExtractor::ExtractNodeId($body);
+    $social = DataExtractor::ExtractSocial($body);
+    $username = DataExtractor::ExtractAccountUsername($body);
+    $meta = DataExtractor::ExtractAccountMeta($body);
+
+    if(InputChecker::CheckNodeId($nodeId, true)
+        && InputChecker::CheckSocial($social)
+        && InputChecker::CheckAccountUsername($username)
+        && InputChecker::CheckAccountMeta($meta)) {
+
+        $socialNetwork = SocialNetwork::ValueToName($social);
+
+        $nm = new NodeManager();
+        echo json_encode($nm->AddAccount($nodeId, $socialNetwork,$username, $meta));
+    } else {
+        throw new BadRequestException();
+    }
 
 });
 
@@ -145,6 +164,8 @@ $app->get('/share', function () {
 $app->error(function (\Exception $e) use ($app) {
     if($e instanceof \SocialAverage\SlimExtensions\Errors\HttpException){
         ErrorHandler::Handle($e, $app);
+    } else {
+
     }
 });
 

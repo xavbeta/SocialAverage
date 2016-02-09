@@ -9,7 +9,9 @@
 namespace SocialAverage\Inputs;
 
 
+use SocialAverage\Nodes\NodeManager;
 use Webpatser\Uuid\Uuid;
+use SocialAverage\Socials\SocialNetwork;
 
 class InputChecker
 {
@@ -22,7 +24,35 @@ class InputChecker
     }
 
 
-    public static function CheckNodeId($userId){
-        return is_numeric($userId);
+    public static function CheckNodeId($nodeId, $checkAgainstDB = false){
+        if(is_numeric($nodeId)){
+            if($checkAgainstDB){
+                $nm = new NodeManager();
+                if($nm->GetNode($nodeId)){
+                    return true;
+                }
+            } else {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public static function CheckSocial($social)
+    {
+        return SocialNetwork::isValidValue($social);
+    }
+
+    public static function CheckAccountUsername($username)
+    {
+        return !is_null($username)
+            && is_string($username)
+            && strlen(trim($username)) > 0;
+    }
+
+    public static function CheckAccountMeta($meta)
+    {
+        return true;
     }
 }

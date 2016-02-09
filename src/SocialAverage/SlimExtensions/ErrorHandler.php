@@ -8,16 +8,23 @@
 
 namespace SocialAverage\SlimExtensions;
 
+use SocialAverage\SlimExtensions\Errors\GenericException;
 use SocialAverage\SlimExtensions\Errors\HttpException;
 
 class ErrorHandler
 {
-    public static function Handle(HttpException $ex, $app){
-        ErrorHandler::printError($ex, $app);
+    public static function Handle(\Exception $ex, $app)
+    {
+        if ($ex instanceof HttpException) {
+            ErrorHandler::printError($ex, $app);
+        } else {
+            ErrorHandler::printError(new GenericException(), $app);
+        }
+
     }
 
-
-    private static function printError(HttpException $ex, $app) {
+    private static function printError(HttpException $ex, $app)
+    {
 
         // set the response content-type
         $app->response->headers->set('Content-Type', 'application/json');
