@@ -13,7 +13,20 @@ use SocialAverage\SlimExtensions\Errors\HttpException;
 class ErrorHandler
 {
     public static function Handle(HttpException $ex, $app){
-            $app->response->setStatus($ex->getCode());
-            $app->response->setBody($ex->getMessage());
+        ErrorHandler::printError($ex, $app);
+    }
+
+
+    private static function printError(HttpException $ex, $app) {
+
+        // set the response content-type
+        $app->response->headers->set('Content-Type', 'application/json');
+        $app->response->setStatus($ex->getCode());
+
+        $err = new \stdClass();
+        $err->message = $ex->getMessage();
+        $err->code = $ex->getCode();
+
+        echo json_encode($err);
     }
 }

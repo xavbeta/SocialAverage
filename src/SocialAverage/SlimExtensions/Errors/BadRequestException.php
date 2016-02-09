@@ -11,8 +11,11 @@ namespace SocialAverage\SlimExtensions\Errors;
 
 class BadRequestException extends HttpException
 {
+    public $message;
+    public $code;
+
     public function __construct() {
-        $message = 'Bad request.';
-        $code = 400;
+        $this->message = 'Bad request.';
+        $this->code = 400;
     }
 }

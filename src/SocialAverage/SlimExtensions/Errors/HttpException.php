@@ -9,7 +9,7 @@
 namespace SocialAverage\SlimExtensions\Errors;
 
 
-class HttpException extends \Exception
+class HttpException extends \ErrorException
 {
 
 }
