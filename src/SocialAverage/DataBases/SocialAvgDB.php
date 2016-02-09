@@ -20,18 +20,18 @@ class SocialAvgDB {
 		$this -> dbPass = $configuration->getDbPassword();
 	}
 
-	public function open() {
+	public function Open() {
 
 		$this->conn = pg_connect("host=" . $this->dbHost . " dbname=" . $this->dbName . " user=" . $this->dbUser . " password=" . $this->dbPass)
 			or die("connection failed");
 
 	}
 
-	public function ia_active() {
+	public function IsActive() {
 		return $this -> conn == FALSE;
 	}
 
-	public function close() {
+	public function Close() {
 		pg_close($this -> conn);
 	}
 
@@ -77,7 +77,9 @@ class SocialAvgDB {
 		if (!$result)
 			throw new \Exception("Error checking last open token: " . pg_last_error($this -> conn));
 
-		if(pg_num_rows($result) == 0){
+		if(pg_num_rows($result) == 0 ||
+			pg_fetch_array($result)['count'] == 0){
+			echo "daie";
 			return false;
 		}
 

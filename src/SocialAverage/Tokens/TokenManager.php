@@ -19,14 +19,14 @@ class TokenManager
 
         if($db == null){
             $this->db = new SocialAvgDB(Configuration::getDefaultConfiguration());
-            $this->db->open();
+            $this->db->Open();
         } else {
             $this->db = $db;
         }
     }
 
     function __destruct() {
-        $this->db->close();
+        $this->db->Close();
     }
 
     public function GetNewToken($user_id) {

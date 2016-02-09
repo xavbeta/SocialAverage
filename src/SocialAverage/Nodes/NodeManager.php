@@ -22,14 +22,14 @@ class NodeManager
 
         if($db == null){
             $this->db = new SocialAvgDB(Configuration::getDefaultConfiguration());
-            $this->db->open();
+            $this->db->Open();
         } else {
             $this->db = $db;
         }
     }
 
     function __destruct() {
-        $this->db->close();
+        $this->db->Close();
     }
 
     public function AddNode(IValueGenerator $valueGenerator){
@@ -53,7 +53,17 @@ class NodeManager
     }
 
     public function GetNode($node_id){
-        //TODO: return a node class with an enumeration of accounts
+        return $this->db->GetNode($node_id);
+    }
+
+    public function GetNodeHistory($nodeId)
+    {
+        return $this->db->GetNodeHistory($nodeId);
+    }
+
+    public function HasOpenTransaction($nodeId)
+    {
+        return $this->db->LastOpenToken($nodeId) !== false;
     }
 
 }

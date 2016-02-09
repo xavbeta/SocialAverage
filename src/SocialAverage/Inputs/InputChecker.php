@@ -20,4 +20,9 @@ class InputChecker
 
         return !($uuid == null || $uuid == false || $uuid->version == null);
     }
+
+
+    public static function CheckNodeId($userId){
+        return is_numeric($userId);
+    }
 }
