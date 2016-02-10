@@ -60,6 +60,17 @@ $app->post('/node/addaccount', function () use ($app) {
 
 });
 
+$app->post('/node/findbyaccount', function () use ($app) {
+    $identifier = DataExtractor::ExtractAccountIdentifier($app->request->getBody());
+
+    if(InputChecker::CheckAccountIdentifier($identifier)) {
+        $nm = new NodeManager();
+        echo json_encode($nm->FindNodeByAccount($identifier));
+    } else {
+        throw new BadRequestException();
+    }
+});
+
 
 $app->post('/node/iswaiting', function () use ($app) {
     $nodeId = DataExtractor::ExtractNodeId($app->request->getBody());
