@@ -144,9 +144,9 @@ UNION select token_id, init_node_id as other_node, ended, 'e' as action, end_nod
 		return $row['node_id'];
 	}
 
-	public function AddAccount($node_id, $social_id, $username, $meta)
+	public function AddAccount($node_id, $social_id, $identifier, $displayName, $photoUrl, $meta)
 	{
-		$result = pg_query($this -> conn, "INSERT into account (node_id,  social, username, meta) VALUES ($node_id, $social_id, '$username', '$meta') RETURNING account_id;");
+		$result = pg_query($this -> conn, "INSERT into account (node_id,  social, identifier, display_name, photo_url, meta) VALUES ($node_id, $social_id, '$identifier', '$displayName', '$photoUrl', '$meta') RETURNING account_id;");
 
 		if (!$result)
 			throw new \Exception("Error creating new account associated belonging to node '$node_id': " . pg_last_error($this -> conn));
@@ -174,7 +174,9 @@ UNION select token_id, init_node_id as other_node, ended, 'e' as action, end_nod
 					$account = new \stdClass();
 					$account -> account_id = $row['account_id'];
 					$account -> social_id = $row['social'];
-					$account -> username = $row['username'];
+					$account -> identifier = $row['identifier'];
+					$account -> photoUrl = $row['photo_url'];
+					$account -> displayName = $row['display_name'];
 					$account -> meta = $row['meta'];
 					array_push($node->accounts, $account);
 				}
@@ -187,6 +189,18 @@ UNION select token_id, init_node_id as other_node, ended, 'e' as action, end_nod
 		} else {
 			return FALSE;
 		}
+	}
+
+	public function FindNodeByAccount($identifier)
+	{
+		$result = pg_query($this -> conn, "select node_id from account where identifier = '$identifier' LIMIT 1;");
+
+		if (!$result)
+			throw new \Exception("Error finding a node associated with account identifier: '$identifier'': " . pg_last_error($this -> conn));
+
+		$row = pg_fetch_array($result);
+
+		return $row['node_id'];
 	}
 
 }

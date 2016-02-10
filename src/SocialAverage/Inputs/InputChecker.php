@@ -44,11 +44,23 @@ class InputChecker
         return SocialNetwork::isValidValue($social);
     }
 
-    public static function CheckAccountUsername($username)
+    public static function CheckAccountIdentifier($username)
     {
         return !is_null($username)
             && is_string($username)
             && strlen(trim($username)) > 0;
+    }
+
+    public static function CheckAccountPhotoUrl($url)
+    {
+        return filter_var($url, FILTER_VALIDATE_URL);
+    }
+
+    public static function CheckAccountDisplayName($username)
+    {
+        return !is_null($username)
+        && is_string($username)
+        && strlen(trim($username)) > 0;
     }
 
     public static function CheckAccountMeta($meta)

@@ -37,9 +37,19 @@ class DataExtractor
         return DataExtractor::ExtractField($body, 'social');
     }
 
-    public static function ExtractAccountUsername($body)
+    public static function ExtractAccountIdentifier($body)
     {
-        return DataExtractor::ExtractField($body, 'social-username');
+        return DataExtractor::ExtractField($body, 'social-identifier');
+    }
+
+    public static function ExtractAccountDisplayName($body)
+    {
+        return DataExtractor::ExtractField($body, 'social-display-name');
+    }
+
+    public static function ExtractAccountPhotoUrl($body)
+    {
+        return DataExtractor::ExtractField($body, 'social-photo-url');
     }
 
     public static function ExtractAccountMeta($body)

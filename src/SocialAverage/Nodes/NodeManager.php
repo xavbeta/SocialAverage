@@ -11,6 +11,7 @@ namespace SocialAverage\Nodes;
 
 use SocialAverage\Config\Configuration;
 use SocialAverage\Databases\SocialAvgDB;
+use SocialAverage\SlimExtensions\Errors\BadRequestException;
 use SocialAverage\Socials\SocialNetwork;
 use SocialAverage\Values\IValueGenerator;
 
@@ -41,15 +42,25 @@ class NodeManager
         return $this->db->GenerateNode($newValue);
     }
 
-    public function AddAccount($node_id, $social, $username, $meta = ''){
-        return $this->db->AddAccount($node_id, SocialNetwork::NameToValue($social), $username, $meta);
+    public function AddAccount($node_id, $social, $identifier , $photoUrl, $displayName, $meta = ''){
+        return $this->db->AddAccount($node_id, SocialNetwork::NameToValue($social), $identifier , $photoUrl, $displayName, $meta);
     }
 
-    public function AddNodeAccount($newValue, SocialNetwork $social, $username, $meta = '')
+    public function AddNodeAccount($newValue, SocialNetwork $social,  $identifier , $photoUrl, $displayName, $meta = '')
     {
         $node_id = $this->db->GenerateNode($newValue);
 
-        return $this->db->AddAccount($node_id, $social, $username, $meta);
+        return $this->db->AddAccount($node_id, $social,  $identifier , $photoUrl, $displayName, $meta);
+    }
+
+    public function FindNodeByAccount($identifier) {
+        $node_id = $this->db->FindNodeByAccount($identifier);
+
+        if($node_id){
+            return $this->GetNode($node_id);
+        }
+
+        throw new BadRequestException();
     }
 
     public function GetNode($node_id){

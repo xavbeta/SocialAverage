@@ -38,18 +38,22 @@ $app->post('/node/addaccount', function () use ($app) {
     $body = $app->request->getBody();
     $nodeId = DataExtractor::ExtractNodeId($body);
     $social = DataExtractor::ExtractSocial($body);
-    $username = DataExtractor::ExtractAccountUsername($body);
+    $identifier = DataExtractor::ExtractAccountIdentifier($body);
+    $photoUrl = DataExtractor::ExtractAccountPhotoUrl($body);
+    $displayName = DataExtractor::ExtractAccountDisplayName($body);
     $meta = DataExtractor::ExtractAccountMeta($body);
 
     if(InputChecker::CheckNodeId($nodeId, true)
         && InputChecker::CheckSocial($social)
-        && InputChecker::CheckAccountUsername($username)
+        && InputChecker::CheckAccountIdentifier($identifier)
+        && InputChecker::CheckAccountDisplayName($displayName)
+        && InputChecker::CheckAccountPhotoUrl($photoUrl)
         && InputChecker::CheckAccountMeta($meta)) {
 
         $socialNetwork = SocialNetwork::ValueToName($social);
 
         $nm = new NodeManager();
-        echo json_encode($nm->AddAccount($nodeId, $socialNetwork,$username, $meta));
+        echo json_encode($nm->AddAccount($nodeId, $socialNetwork,$identifier, $photoUrl, $displayName, $meta));
     } else {
         throw new BadRequestException();
     }
