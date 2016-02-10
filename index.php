@@ -8,24 +8,22 @@
 
 
 // Autoload
-require 'vendor/autoload.php';
+use SocialAverage\Authentication\AuthenticationManager;
 
-//use Slim\Views\Twig;
-use SocialAverage\SlimExtensions\ErrorHandler;
-use SocialAverage\Templates\SocialLoginTemplate;
+require 'vendor/autoload.php';
 
 error_reporting(-1);
 ini_set('display_errors', 'On');
 
 // Instantiate a Slim application
 $app = new \Slim\Slim(array(
-    'debug' => false
+    'debug' => true
 ));
 
 $app->get('/', function () use ($app) {
-    SocialLoginTemplate::getInitTemplate();
-
-    //return $this->view->render($response, 'main.html');
+    //AuthenticationManager::Authenticate(4, $app);
+    AuthenticationManager::Verify($app);
+    $app->render('home.php');
 
 })->setName("index");
 
@@ -33,14 +31,7 @@ include_once ('endpoints/token.php');
 include_once ('endpoints/node.php');
 include_once ('endpoints/social.php');
 include_once ('endpoints/share.php');
-
-$app->error(function (\Exception $e) use ($app) {
-    if($e instanceof \SocialAverage\SlimExtensions\Errors\HttpException){
-        ErrorHandler::Handle($e, $app);
-    } else {
-
-    }
-});
+include_once ('endpoints/error.php');
 
 // Run the Slim application
 $app->run();

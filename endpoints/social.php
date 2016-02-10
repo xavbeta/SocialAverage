@@ -3,6 +3,10 @@
 use SocialAverage\SlimExtensions\Errors\PageNotFoundException;
 use SocialAverage\Templates\SocialLoginTemplate;
 
+$app->get('/login', function () use ($app) {
+    $app->render('home.php');
+});
+
 $app->get('/login/:social', function ($social) use ($app) {
     switch($social) {
         case "twitter":

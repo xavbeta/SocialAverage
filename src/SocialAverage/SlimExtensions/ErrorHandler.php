@@ -8,24 +8,29 @@
 
 namespace SocialAverage\SlimExtensions;
 
+use Slim\Slim;
 use SocialAverage\SlimExtensions\Errors\GenericException;
 use SocialAverage\SlimExtensions\Errors\HttpException;
+use SocialAverage\SlimExtensions\Errors\UnauthenticatedRequestException;
 
 class ErrorHandler
 {
-    public static function Handle(\Exception $ex, $app)
+    public function Handle(\Exception $ex, $app)
     {
         if ($ex instanceof HttpException) {
-            ErrorHandler::printError($ex, $app);
+            if($this->exceptionNeedsSpecialTreatment($ex)) {
+                $this->manageSpecialException($ex, $app);
+            } else {
+                $this->printError($ex, $app);
+            }
         } else {
-            ErrorHandler::printError(new GenericException(), $app);
+            $this->printError(new GenericException(), $app);
         }
 
     }
 
-    private static function printError(HttpException $ex, $app)
+    private function printError(HttpException $ex, $app)
     {
-
         // set the response content-type
         $app->response->headers->set('Content-Type', 'application/json');
         $app->response->setStatus($ex->getCode());
@@ -35,5 +40,17 @@ class ErrorHandler
         $err->code = $ex->getCode();
 
         echo json_encode($err);
+    }
+
+    private function exceptionNeedsSpecialTreatment(HttpException $ex)
+    {
+        return $ex instanceof UnauthenticatedRequestException;
+    }
+
+    private function manageSpecialException($ex, Slim $app)
+    {
+        if($ex instanceof UnauthenticatedRequestException){
+            $app->redirect('/login');
+        }
     }
 }
