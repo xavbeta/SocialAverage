@@ -5,3 +5,5 @@
  * Date: 15/02/2016
  * Time: 17:10
  */
+
+echo "Token already redeemed!";

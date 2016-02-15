@@ -6,13 +6,4 @@
  * Time: 11:32
  */
 
-use SocialAverage\Templates\SocialLoginTemplate;
-
-SocialLoginTemplate::getInitTemplate();
-
-//TODO: current value
-//TODO: history
-
-//TODO: current token and share OR generate token button
-
-//TODO: redeem code button
+//TODO: redeem code box
