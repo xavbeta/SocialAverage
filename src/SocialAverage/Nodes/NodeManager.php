@@ -74,7 +74,7 @@ class NodeManager
 
     public function HasOpenTransaction($nodeId)
     {
-        return $this->db->LastOpenToken($nodeId) !== false;
+        return $this->db->LastOpenToken($nodeId);
     }
 
 }
