@@ -21,9 +21,9 @@ $app = new \Slim\Slim(array(
 ));
 
 $app->get('/', function () use ($app) {
-    //AuthenticationManager::Authenticate(4, $app);
+    AuthenticationManager::Authenticate(4, $app);
     AuthenticationManager::Verify($app);
-    $app->render('home.php');
+    $app->render('home.php', array("nodeId" => $app->node));
 
 })->setName("index");
 
