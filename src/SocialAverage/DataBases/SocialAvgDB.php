@@ -72,18 +72,16 @@ class SocialAvgDB {
 
 	public function LastOpenToken($user_id) {
 
-		$result = pg_query($this -> conn, "SELECT COUNT(*) FROM token WHERE init_node_id = $user_id AND end_node_id IS NULL;");
+		$result = pg_query($this -> conn, "SELECT * FROM token WHERE init_node_id = $user_id AND end_node_id IS NULL;");
 
 		if (!$result)
 			throw new \Exception("Error checking last open token: " . pg_last_error($this -> conn));
 
-		if(pg_num_rows($result) == 0 ||
-			pg_fetch_array($result)['count'] == 0){
-			echo "daie";
+		if(pg_num_rows($result) == 0){
 			return false;
 		}
 
-		return pg_fetch_array($result);
+		return pg_fetch_object ($result);
 
 	}
 
@@ -117,7 +115,7 @@ UNION select token_id, init_node_id as other_node, ended, 'e' as action, end_nod
 			$t -> node_id = $node_id;
 			$t -> other_node_id = $row['other_node'];
 			$t -> ended = $row['ended'];
-			$t -> is_initiatiator = strcmp($row['action'], "i") == 0 ? true : false;
+			$t -> is_initiator = strcmp($row['action'], "i") == 0 ? true : false;
 			$t -> init_value = $row['init_value'];
 			$t -> final_value = $row['final_value'];
 			$t -> other_node_value = $row['other_value'];
