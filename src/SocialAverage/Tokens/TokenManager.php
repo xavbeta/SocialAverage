@@ -10,6 +10,8 @@ namespace SocialAverage\Tokens;
 
 use SocialAverage\Config\Configuration;
 use SocialAverage\DataBases\SocialAvgDB;
+use SocialAverage\SlimExtensions\Errors\InvalidTokenException;
+use SocialAverage\SlimExtensions\Errors\SpoiledTokenException;
 
 class TokenManager
 {
@@ -42,7 +44,28 @@ class TokenManager
 
     }
 
+    public function IsTokenValid($token_id) {
+        return $this->db->IsTokenValid($token_id);
+
+    }
+
+    private function IsTokenRedeemableByNode($token_id, $end_user_id)
+    {
+        $token = $this->GetToken($token_id);
+        return $token->init_node_id != $end_user_id;
+    }
+
     public function CommitToken($token_id, $end_user_id) {
+        if(!$this->IsTokenValid($token_id)){
+            throw new SpoiledTokenException();
+            exit(0);
+        }
+
+        if(!$this->IsTokenRedeemableByNode($token_id, $end_user_id)){
+            throw new InvalidTokenException();
+        }
+
+
         return $this->db->CommitToken($token_id, $end_user_id);
     }
 
@@ -63,4 +86,6 @@ class TokenManager
     public function GetNodeHistory($node_id){
         return $this->db->GetNodeHistory($node_id);
     }
+
+
 }

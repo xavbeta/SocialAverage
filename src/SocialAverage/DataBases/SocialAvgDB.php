@@ -3,6 +3,7 @@
 namespace SocialAverage\Databases;
 
 use SocialAverage\Config\Configuration;
+use SocialAverage\SlimExtensions\Errors\InvalidTokenException;
 
 
 class SocialAvgDB {
@@ -82,6 +83,13 @@ class SocialAvgDB {
 		}
 
 		return pg_fetch_object ($result);
+
+	}
+
+	public function IsTokenValid($token_id){
+		$token = $this->GetToken($token_id);
+
+		return $token->ended == null;
 
 	}
 
