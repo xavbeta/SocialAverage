@@ -8,6 +8,7 @@
 
 
 use SocialAverage\Inputs\DataExtractor;
+use SocialAverage\Inputs\DataJSONExtractor;
 use SocialAverage\Inputs\InputChecker;
 use SocialAverage\SlimExtensions\Errors\BadRequestException;
 use SocialAverage\Tokens\TokenManager;
@@ -25,7 +26,7 @@ $app->get('/token/:token_id', function ($token_id) use ($app) {
 })->name("token")->conditions(array('token_id' => '[\w-]+'));
 
 $app->post('/token/generate', function () use ($app) {
-    $userId = DataExtractor::ExtractNodeId($app->request->getBody());
+    $userId = DataJSONExtractor::ExtractNodeId($app->request->getBody());
 
     if(InputChecker::CheckNodeId($userId)) {
         $tm = new TokenManager();
@@ -38,8 +39,8 @@ $app->post('/token/generate', function () use ($app) {
 $app->post('/token/commit', function () use ($app) {
 
     $body = $app->request->getBody();
-    $nodeId = DataExtractor::ExtractNodeId($body);
-    $tokenId = DataExtractor::ExtractTokenId($body);
+    $nodeId = DataJSONExtractor::ExtractNodeId($body);
+    $tokenId = DataJSONExtractor::ExtractTokenId($body);
 
     if(InputChecker::CheckNodeId($nodeId)
         && InputChecker::CheckTokenId($tokenId)) {

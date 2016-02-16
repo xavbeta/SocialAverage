@@ -8,6 +8,7 @@
 
 
 use SocialAverage\Inputs\DataExtractor;
+use SocialAverage\Inputs\DataJSONExtractor;
 use SocialAverage\Inputs\InputChecker;
 use SocialAverage\Nodes\NodeManager;
 use SocialAverage\SlimExtensions\Errors\BadRequestException;
@@ -24,7 +25,7 @@ $app->get('/node/:nodeId', function ($nodeId) use ($app) {
 });
 
 $app->post('/node/history', function () use ($app) {
-    $nodeId = DataExtractor::ExtractNodeId($app->request->getBody());
+    $nodeId = DataJSONExtractor::ExtractNodeId($app->request->getBody());
 
     if(InputChecker::CheckNodeId($nodeId)) {
         $nm = new NodeManager();
@@ -36,12 +37,12 @@ $app->post('/node/history', function () use ($app) {
 
 $app->post('/node/addaccount', function () use ($app) {
     $body = $app->request->getBody();
-    $nodeId = DataExtractor::ExtractNodeId($body);
-    $social = DataExtractor::ExtractSocial($body);
-    $identifier = DataExtractor::ExtractAccountIdentifier($body);
-    $photoUrl = DataExtractor::ExtractAccountPhotoUrl($body);
-    $displayName = DataExtractor::ExtractAccountDisplayName($body);
-    $meta = DataExtractor::ExtractAccountMeta($body);
+    $nodeId = DataJSONExtractor::ExtractNodeId($body);
+    $social = DataJSONExtractor::ExtractSocial($body);
+    $identifier = DataJSONExtractor::ExtractAccountIdentifier($body);
+    $photoUrl = DataJSONExtractor::ExtractAccountPhotoUrl($body);
+    $displayName = DataJSONExtractor::ExtractAccountDisplayName($body);
+    $meta = DataJSONExtractor::ExtractAccountMeta($body);
 
     if(InputChecker::CheckNodeId($nodeId, true)
         && InputChecker::CheckSocial($social)
@@ -61,7 +62,7 @@ $app->post('/node/addaccount', function () use ($app) {
 });
 
 $app->post('/node/findbyaccount', function () use ($app) {
-    $identifier = DataExtractor::ExtractAccountIdentifier($app->request->getBody());
+    $identifier = DataJSONExtractor::ExtractAccountIdentifier($app->request->getBody());
 
     if(InputChecker::CheckAccountIdentifier($identifier)) {
         $nm = new NodeManager();
@@ -73,7 +74,7 @@ $app->post('/node/findbyaccount', function () use ($app) {
 
 
 $app->post('/node/iswaiting', function () use ($app) {
-    $nodeId = DataExtractor::ExtractNodeId($app->request->getBody());
+    $nodeId = DataJSONExtractor::ExtractNodeId($app->request->getBody());
 
     if(InputChecker::CheckNodeId($nodeId)) {
         $nm = new NodeManager();
