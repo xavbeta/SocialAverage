@@ -25,12 +25,12 @@ use SocialAverage\Templates\SocialSharerTemplate;
 $node = $nm->GetNode($nodeId);
 ?>
 
-<p>
+<div>
     <h2>Current value</h2>
     <strong><?php echo $node->value ?></strong> (last update <?php echo $node->last_change ?>)
-</p>
+</div>
 
-<p>
+<div>
     <h2>Value history</h2>
     <ul>
     <?php foreach($nm->GetNodeHistory($nodeId) as $historyEntry): ?>
@@ -42,9 +42,9 @@ $node = $nm->GetNode($nodeId);
         </li>
     <?php endforeach; ?>
     </ul>
-</p>
+</div>
 
-<p>
+<div>
     <h2>Token</h2>
     <?php
         $ot = $nm->HasOpenTransaction($nodeId);
@@ -58,14 +58,13 @@ $node = $nm->GetNode($nodeId);
             </p>
         <?php else: ?>
             <p>
-                //TODO: generate new token (ajax?)
+                <a href="<?php echo $generateTokenUrl; ?>">Generate token</a>
             </p>
     <?php endif;?>
-
-    //TODO: redeem code button
-</p>
-
-
+            <p>
+                <a href="<?php echo $redeemTokenUrl; ?>">Redeem token</a>
+            </p>
+</div>
 
 </body>
 </html>
