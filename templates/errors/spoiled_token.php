@@ -12,7 +12,7 @@
 <head>
     <meta charset="utf-8">
 
-    <title>Collective Intelligence - Invalid Token</title>
+    <title>Collective Intelligence - Spoiled Token</title>
     <meta name="description" content="A collective intelligence serious game">
     <meta name="author" content="Saverio Delpriori">
 
@@ -20,7 +20,7 @@
 <body>
 
 <div>
-    <h2>Invalid token!</h2>
+    <h2>Spoiled token!</h2>
     <p>Provided token <?php echo $token? "($token) ":"" ?>is not a valid one!</p>
     <p><a href="<?php echo $homeUrl; ?>">Go back home</a>.</p>
 </div>
