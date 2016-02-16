@@ -11,6 +11,8 @@ namespace SocialAverage\SlimExtensions;
 use Slim\Slim;
 use SocialAverage\SlimExtensions\Errors\GenericException;
 use SocialAverage\SlimExtensions\Errors\HttpException;
+use SocialAverage\SlimExtensions\Errors\InvalidTokenException;
+use SocialAverage\SlimExtensions\Errors\SpoiledTokenException;
 use SocialAverage\SlimExtensions\Errors\UnauthenticatedRequestException;
 
 class ErrorHandler
@@ -26,7 +28,6 @@ class ErrorHandler
         } else {
             $this->printError(new GenericException(), $app);
         }
-
     }
 
     private function printError(HttpException $ex, $app)
@@ -44,13 +45,20 @@ class ErrorHandler
 
     private function exceptionNeedsSpecialTreatment(HttpException $ex)
     {
-        return $ex instanceof UnauthenticatedRequestException;
+        return $ex instanceof UnauthenticatedRequestException
+        || $ex instanceof SpoiledTokenException
+        || $ex instanceof InvalidTokenException;
     }
 
     private function manageSpecialException($ex, Slim $app)
     {
         if($ex instanceof UnauthenticatedRequestException){
             $app->redirect('/login');
+        } else if ($ex instanceof SpoiledTokenException) {
+            $app->redirect('/spoiled');
+        } else if ($ex instanceof InvalidTokenException){
+            $app->redirect('/invalid');
         }
+
     }
 }
