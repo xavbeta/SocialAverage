@@ -42,15 +42,15 @@ class NodeManager
         return $this->db->GenerateNode($newValue);
     }
 
-    public function AddAccount($node_id, $social, $identifier , $photoUrl, $displayName, $meta = ''){
-        return $this->db->AddAccount($node_id, SocialNetwork::NameToValue($social), $identifier , $photoUrl, $displayName, $meta);
+    public function AddAccount($node_id, $social, $identifier , $displayName, $photoUrl, $meta = ''){
+        return $this->db->AddAccount($node_id, SocialNetwork::NameToValue($social), $identifier , $displayName, $photoUrl, $meta);
     }
 
-    public function AddNodeAccount($newValue, SocialNetwork $social,  $identifier , $photoUrl, $displayName, $meta = '')
+    public function AddNodeAccount($newValue, SocialNetwork $social,  $identifier , $displayName, $photoUrl, $meta = '')
     {
         $node_id = $this->db->GenerateNode($newValue);
 
-        return $this->db->AddAccount($node_id, $social,  $identifier , $photoUrl, $displayName, $meta);
+        return $this->db->AddAccount($node_id, $social,  $identifier , $displayName, $photoUrl, $meta);
     }
 
     public function FindNodeByAccount($identifier) {

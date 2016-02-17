@@ -162,6 +162,10 @@ UNION select token_id, init_node_id as other_node, ended, 'e' as action, end_nod
 		return $row['account_id'];
 	}
 
+	public function MergeNodes($first_node_id, $second_node_id){
+
+	}
+
 	public function  GetNode($node_id) {
 		$result = pg_query($this -> conn, "select * from node LEFT JOIN account on node.node_id = account.node_id where node.node_id = $node_id;");
 
@@ -181,8 +185,8 @@ UNION select token_id, init_node_id as other_node, ended, 'e' as action, end_nod
 					$account -> account_id = $row['account_id'];
 					$account -> social_id = $row['social'];
 					$account -> identifier = $row['identifier'];
-					$account -> photoUrl = $row['photo_url'];
-					$account -> displayName = $row['display_name'];
+					$account -> photo_url = $row['photo_url'];
+					$account -> display_name = $row['display_name'];
 					$account -> meta = $row['meta'];
 					array_push($node->accounts, $account);
 				}

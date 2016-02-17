@@ -54,7 +54,7 @@ $app->post('/node/addaccount', function () use ($app) {
         $socialNetwork = SocialNetwork::ValueToName($social);
 
         $nm = new NodeManager();
-        echo json_encode($nm->AddAccount($nodeId, $socialNetwork,$identifier, $photoUrl, $displayName, $meta));
+        echo json_encode($nm->AddAccount($nodeId, $socialNetwork,$identifier, $displayName, $photoUrl, $meta));
     } else {
         throw new BadRequestException();
     }

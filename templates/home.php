@@ -5,6 +5,7 @@
  * Date: 10/02/2016
  * Time: 11:32
  */
+use SocialAverage\Socials\SocialNetwork;
 use SocialAverage\Templates\SocialSharerTemplate;
 
 ?>
@@ -24,6 +25,23 @@ use SocialAverage\Templates\SocialSharerTemplate;
 <?php
 $node = $nm->GetNode($nodeId);
 ?>
+
+<div>
+    <h3>Linked accounts:</h3>
+    <pre><?php print_r ($node->accounts); ?></pre>
+    <ul>
+        <?php foreach($node->accounts as $account): ?>
+            <li>
+                <div><?php //echo SocialNetwork::ValueToName($account->social_id); ?></div>
+                <div>
+                    <div>Id: <?php echo $account->identifier; ?></div>
+                    <div>Name: <?php echo $account->display_name; ?></div>
+                    <div><img src="<?php echo $account->photo_url; ?>" /></div>
+                </div>
+            </li>
+        <?php endforeach; ?>
+    </ul>
+</div>
 
 <div>
     <h2>Current value</h2>
