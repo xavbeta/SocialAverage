@@ -5,6 +5,8 @@
  * Date: 10/02/2016
  * Time: 11:32
  */
+use SocialAverage\Nodes\NodeManager;
+
 ?>
 
 <!doctype html>
@@ -17,7 +19,7 @@
     <meta name="author" content="Saverio Delpriori">
 
 </head>
-<?php $nm = new \SocialAverage\Nodes\NodeManager(); ?>
+<?php $nm = new NodeManager(); ?>
 <body>
 <?php
 $node = $nm->GetNode($nodeId);
