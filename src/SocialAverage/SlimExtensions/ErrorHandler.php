@@ -11,6 +11,7 @@ namespace SocialAverage\SlimExtensions;
 use Slim\Slim;
 use SocialAverage\SlimExtensions\Errors\GenericException;
 use SocialAverage\SlimExtensions\Errors\HttpException;
+use SocialAverage\SlimExtensions\Errors\IllegalRequestException;
 use SocialAverage\SlimExtensions\Errors\InvalidTokenException;
 use SocialAverage\SlimExtensions\Errors\SpoiledTokenException;
 use SocialAverage\SlimExtensions\Errors\UnauthenticatedRequestException;
@@ -47,17 +48,21 @@ class ErrorHandler
     {
         return $ex instanceof UnauthenticatedRequestException
         || $ex instanceof SpoiledTokenException
-        || $ex instanceof InvalidTokenException;
+        || $ex instanceof InvalidTokenException
+        || $ex instanceof IllegalRequestException;
     }
 
     private function manageSpecialException($ex, Slim $app)
     {
         if($ex instanceof UnauthenticatedRequestException){
-            $app->redirect('/login');
+            $e = (array)$ex;
+            $app->redirect('/login'.($e['resourceUri']?"?url=".$e['resourceUri']:""));
         } else if ($ex instanceof SpoiledTokenException) {
             $app->redirect('/spoiled');
         } else if ($ex instanceof InvalidTokenException){
             $app->redirect('/invalid');
+        } else if ($ex instanceof IllegalTokenException){
+            $app->redirect('/illegalrequest');
         }
 
     }

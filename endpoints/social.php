@@ -4,28 +4,33 @@ use SocialAverage\SlimExtensions\Errors\PageNotFoundException;
 use SocialAverage\Templates\SocialLoginTemplate;
 
 $app->get('/login', function () use ($app) {
-    $app->render('home.php');
+    $app->render('login.php', array("redirect_url" => $app->request()->get('url')));
 });
 
 $app->get('/login/:social', function ($social) use ($app) {
+
+    $redirectUrl = urldecode($app->request()->get('url'));
+
     switch($social) {
         case "twitter":
-            SocialLoginTemplate::doTwitterLogin();
+            echo $redirectUrl;
+
+            SocialLoginTemplate::doTwitterLogin($app, $redirectUrl);
             break;
         case "facebook":
-            SocialLoginTemplate::doFacebookLogin();
+            SocialLoginTemplate::doFacebookLogin($app, $redirectUrl);
             break;
         case "google":
-            SocialLoginTemplate::doGoogleLogin();
+            SocialLoginTemplate::doGoogleLogin($app, $redirectUrl);
             break;
         case "openid":
-            SocialLoginTemplate::doOpenIDLogin();
+            SocialLoginTemplate::doOpenIDLogin($app, $redirectUrl);
             break;
         case "linkedin":
-            SocialLoginTemplate::doLinkedInLogin();
+            SocialLoginTemplate::doLinkedInLogin($app, $redirectUrl);
             break;
         case "instagram":
-            SocialLoginTemplate::doInstagramLogin();
+            SocialLoginTemplate::doInstagramLogin($app, $redirectUrl);
             break;
         default:
             throw new PageNotFoundException();

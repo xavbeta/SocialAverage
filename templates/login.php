@@ -8,4 +8,6 @@
 
 use SocialAverage\Templates\SocialLoginTemplate;
 
-SocialLoginTemplate::getInitTemplate();
+
+
+SocialLoginTemplate::getInitTemplate($redirect_url);

@@ -11,8 +11,10 @@ namespace SocialAverage\SlimExtensions\Errors;
 
 class UnauthenticatedRequestException extends HttpException
 {
-    public function __construct() {
+    public $resourceUri = "";
+    public function __construct($resourceUri) {
         $message = 'Unauthenticated';
         $code = 401;
+        $this->resourceUri = $resourceUri;
     }
 }

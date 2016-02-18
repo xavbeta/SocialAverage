@@ -22,7 +22,7 @@ class AuthenticationManager
         $nodeId = AuthenticationSalt::Remove($cookie);
 
         if($nodeId == null || !InputChecker::CheckNodeId($nodeId, true)){
-            throw new UnauthenticatedRequestException();
+            throw new UnauthenticatedRequestException(urlencode($app->request->getUrl()));
         }
 
         $app->node = $nodeId;
