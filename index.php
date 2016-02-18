@@ -21,11 +21,11 @@ ini_set('display_errors', 'On');
 
 // Instantiate a Slim application
 $app = new \Slim\Slim(array(
-    'debug' => false
+    'debug' => true
 ));
 
 $app->get('/', function () use ($app) {
-    AuthenticationManager::Authenticate(4, $app);
+    //AuthenticationManager::Authenticate(4, $app);
     AuthenticationManager::Verify($app);
     $app->render('home.php', array("nodeId" => $app->node, "generateTokenUrl" => $app->urlFor("initiate"), "redeemTokenUrl" => $app->urlFor("redeem")));
 
@@ -76,6 +76,12 @@ $app->get('/invalid(/:token)', function ($token = null) use ($app) {
     $app->render('errors/invalid_token.php', array("nodeId" => $app->node, "token"=>$token, "homeUrl" => $app->urlFor("index")));
 
 })->setName("invalid");
+
+$app->get('/illegalrequest', function () use ($app) {
+
+    $app->render('errors/illegal_request.php');
+
+})->setName("illegal");
 
 
 //include_once ('endpoints/token.php');
