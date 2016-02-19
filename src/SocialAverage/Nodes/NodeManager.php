@@ -53,14 +53,18 @@ class NodeManager
         return $this->db->AddAccount($node_id, $social,  $identifier , $displayName, $photoUrl, $meta);
     }
 
-    public function FindNodeByAccount($identifier) {
+    public function FindNodeByAccount($identifier, $throwException = true) {
         $node_id = $this->db->FindNodeByAccount($identifier);
 
         if($node_id){
             return $this->GetNode($node_id);
         }
+        if($throwException){
+            throw new BadRequestException();
+        } else {
+            return false;
+        }
 
-        throw new BadRequestException();
     }
 
     public function GetNode($node_id){
@@ -70,6 +74,16 @@ class NodeManager
     public function GetNodeHistory($nodeId)
     {
         return $this->db->GetNodeHistory($nodeId);
+    }
+
+    public function GetTransactionsCount($nodeId)
+    {
+        $history = $this->GetNodeHistory($nodeId);
+        if($history){
+            return count($history);
+        }
+
+        return 0;
     }
 
     public function HasOpenTransaction($nodeId)

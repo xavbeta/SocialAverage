@@ -10,6 +10,9 @@ namespace SocialAverage\Templates;
 
 use Slim\Slim;
 use SocialAverage\Authentication\AuthenticationManager;
+use SocialAverage\Nodes\NodeManager;
+use SocialAverage\SlimExtensions\Errors\IllegalRequestException;
+use SocialAverage\SlimExtensions\Errors\UnauthenticatedRequestException;
 use SocialAverage\Socials\ErrorWrapper;
 use SocialAverage\Socials\FacebookLoginWrapper;
 use SocialAverage\Socials\GoogleLoginWrapper;
@@ -17,6 +20,7 @@ use SocialAverage\Socials\InstagramLoginWrapper;
 use SocialAverage\Socials\LinkedInLoginWrapper;
 use SocialAverage\Socials\OpenIDLoginWrapper;
 use SocialAverage\Socials\TwitterLoginWrapper;
+use SocialAverage\Values\UniformIntegerGenerator;
 
 require_once("vendor/hybridauth/hybridauth/hybridauth/Hybrid/Endpoint.php");
 require_once("vendor/hybridauth/hybridauth/hybridauth/Hybrid/Auth.php");
@@ -32,16 +36,63 @@ class SocialLoginTemplate
         if(!$userData instanceof ErrorWrapper){
             echo "<pre>".print_r($userData, true)."</pre>";
 
-            exit(0);
+            //exit(0);
+            //checking authentication
+            try {
+                AuthenticationManager::Verify($app);
+            } catch (UnauthenticatedRequestException $ex){
+                //do nothing
+            }
 
-            //TODO: is new user? then add node and account then authenticate then redirect to addaccount page
+            // checking account existance
+            $nm = new NodeManager();
+            $node = $nm->FindNodeByAccount($userData['identifier']);
 
-            //TODO: is registration phase (authenticated but no transaction yet)?
-            // then add account then redirect to addaccount page
-            // else IllegalRequestException!
+            // it's a registration
+            if(!AuthenticationManager::IsAuthenticated($app)    // is not authenticated
+                && !$node){                                     // and it's not present in db
 
+                // add node and account
+                $nodeId = $nm->AddNode(new UniformIntegerGenerator());
+                $nm->AddAccount($nodeId,'Facebook', $userData['identifier'], $userData['display_name'], $userData['photo_url'], $userData);
 
-            AuthenticationManager::Authenticate(4, $app);
+                // authenticate
+                AuthenticationManager::Authenticate($nodeId, $app);
+
+                // redirect to addAccount
+                $app->redirect('/addaccount');
+
+            }
+            // it's in registration phase (from addaccount page)
+            else if (AuthenticationManager::IsAuthenticated($app) // it's authenticated
+                    && !$node                                        // and it's not present in db
+                    && $nm->GetTransactionsCount($app->node) == 0){  // has no transaction yet
+
+                    // add account
+                    $nm->AddAccount($app->node,'Facebook', $userData['identifier'], $userData['display_name'], $userData['photo_url'], $userData);
+
+                    // redirect to addAccount
+                    $app->redirect('/addaccount');
+            }
+            // it's a login
+            else if ($node) {
+
+                // authenticate
+                AuthenticationManager::Authenticate($node->node_id, $app);
+
+                // redirect to home or redirect
+                if($redirectUrl || strlen($redirectUrl) > 0) {
+                    echo $redirectUrl;
+                    $app->redirect("$redirectUrl");
+                } else {
+                    $app->redirect($app->request->getRootUri());
+                }
+            }
+            // action not allowed
+            else {
+                throw new IllegalRequestException();
+            }
+
 
 
             if($redirectUrl || strlen($redirectUrl) > 0) {

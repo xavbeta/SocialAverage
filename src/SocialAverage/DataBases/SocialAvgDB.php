@@ -197,7 +197,7 @@ UNION select token_id, init_node_id as other_node, ended, 'e' as action, end_nod
 
 			return $node;
 		} else {
-			return FALSE;
+			return false;
 		}
 	}
 
@@ -208,9 +208,13 @@ UNION select token_id, init_node_id as other_node, ended, 'e' as action, end_nod
 		if (!$result)
 			throw new \Exception("Error finding a node associated with account identifier: '$identifier'': " . pg_last_error($this -> conn));
 
-		$row = pg_fetch_array($result);
+		if(pg_num_rows($result) > 0) {
+			$row = pg_fetch_array($result);
 
-		return $row['node_id'];
+			return $row['node_id'];
+		} else {
+			return false;
+		}
 	}
 
 }

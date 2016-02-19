@@ -29,6 +29,14 @@ class AuthenticationManager
 
     }
 
+    public static function IsAuthenticated(Slim $app){
+        $cookie = $app->getCookie('slim_session');
+        $nodeId = AuthenticationSalt::Remove($cookie);
+
+        return ($nodeId != null && InputChecker::CheckNodeId($nodeId, true));
+
+    }
+
     public static function Authenticate($nodeId,Slim $app){
         $app->setCookie('slim_session',AuthenticationSalt::Apply($nodeId),'1 day', '/', null, false, false);
         /*$app->add(new \Slim\Middleware\SessionCookie(array(
