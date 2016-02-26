@@ -5,7 +5,7 @@ use SocialAverage\Templates\SocialLoginTemplate;
 
 $app->get('/login', function () use ($app) {
     $app->render('login.php', array("redirect_url" => $app->request()->get('url')));
-});
+})->setName('login');
 
 $app->get('/login/:social', function ($social) use ($app) {
 
@@ -13,8 +13,6 @@ $app->get('/login/:social', function ($social) use ($app) {
 
     switch($social) {
         case "twitter":
-            echo $redirectUrl;
-
             SocialLoginTemplate::doTwitterLogin($app, $redirectUrl);
             break;
         case "facebook":
@@ -33,6 +31,7 @@ $app->get('/login/:social', function ($social) use ($app) {
             SocialLoginTemplate::doInstagramLogin($app, $redirectUrl);
             break;
         default:
-            throw new PageNotFoundException();
+            //echo $social."------".$redirectUrl;
+            throw new PageNotFoundException($app->request->getUrl() + $redirectUrl);
     }
 });

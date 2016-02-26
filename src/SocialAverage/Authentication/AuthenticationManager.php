@@ -32,7 +32,7 @@ class AuthenticationManager
     public static function IsAuthenticated(Slim $app){
         $cookie = $app->getCookie('slim_session');
         $nodeId = AuthenticationSalt::Remove($cookie);
-
+        echo "\n is authenticated nodeId: $nodeId";
         return ($nodeId != null && InputChecker::CheckNodeId($nodeId, true));
 
     }

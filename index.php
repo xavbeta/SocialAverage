@@ -21,7 +21,7 @@ ini_set('display_errors', 'On');
 
 // Instantiate a Slim application
 $app = new \Slim\Slim(array(
-    'debug' => true
+    'debug' => false
 ));
 
 $app->get('/', function () use ($app) {
@@ -30,6 +30,13 @@ $app->get('/', function () use ($app) {
     $app->render('home.php', array("nodeId" => $app->node, "generateTokenUrl" => $app->urlFor("initiate"), "redeemTokenUrl" => $app->urlFor("redeem")));
 
 })->setName("index");
+
+$app->get('/addaccount', function () use ($app) {
+    AuthenticationManager::Verify($app);
+
+    $app->render('addaccount.php', array("nodeId" => $app->node, "homeUrl" => $app->urlFor("index")));
+
+})->setName("addaccount");
 
 $app->get('/redeem(/:token)', function ($token = null) use ($app) {
     AuthenticationManager::Verify($app);

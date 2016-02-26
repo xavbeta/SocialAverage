@@ -8,7 +8,7 @@
 
 return
     array(
-        "base_url" => "http://www.s-delpriori.it/socialaverage/login/",
+        "base_url" => "http://chatbot.clouduino.eu/login/",
         "providers" => array(
             "Twitter" => array(
                 "enabled" => true, "keys" => array("key" => "sYm6ovnDV02uCgLSmvhxuwQQt", "secret" => "drhUIU9UX7brlv7dKyAGJn9y4HYZcbj1YA5tv89R9dpYWXjihf"),

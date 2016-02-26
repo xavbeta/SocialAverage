@@ -5,6 +5,7 @@
  * Date: 10/02/2016
  * Time: 11:32
  */
+use SocialAverage\Nodes\NodeManager;
 use SocialAverage\Socials\SocialNetwork;
 use SocialAverage\Templates\SocialSharerTemplate;
 
@@ -20,7 +21,7 @@ use SocialAverage\Templates\SocialSharerTemplate;
     <meta name="author" content="Saverio Delpriori">
 
 </head>
-<?php $nm = new \SocialAverage\Nodes\NodeManager(); ?>
+<?php $nm = NodeManager::GetInstance(); ?>
 <body>
 <?php
 $node = $nm->GetNode($nodeId);

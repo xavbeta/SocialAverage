@@ -19,7 +19,9 @@ class NodeManager
 {
     private $db;
 
-    function __construct(SocialAvgDB $db = null) {
+    private static $instance;
+
+    private function __construct(SocialAvgDB $db = null) {
 
         if($db == null){
             $this->db = new SocialAvgDB(Configuration::getDefaultConfiguration());
@@ -31,6 +33,13 @@ class NodeManager
 
     function __destruct() {
         $this->db->Close();
+    }
+
+    public static function GetInstance(){
+        if(self::$instance == null){
+            self::$instance = new NodeManager();
+        }
+        return self::$instance;
     }
 
     public function AddNode(IValueGenerator $valueGenerator){
@@ -59,6 +68,7 @@ class NodeManager
         if($node_id){
             return $this->GetNode($node_id);
         }
+
         if($throwException){
             throw new BadRequestException();
         } else {
@@ -79,6 +89,7 @@ class NodeManager
     public function GetTransactionsCount($nodeId)
     {
         $history = $this->GetNodeHistory($nodeId);
+
         if($history){
             return count($history);
         }

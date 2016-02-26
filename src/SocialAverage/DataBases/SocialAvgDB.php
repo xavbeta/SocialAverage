@@ -3,7 +3,6 @@
 namespace SocialAverage\Databases;
 
 use SocialAverage\Config\Configuration;
-use SocialAverage\SlimExtensions\Errors\InvalidTokenException;
 
 
 class SocialAvgDB {
@@ -29,16 +28,18 @@ class SocialAvgDB {
 	}
 
 	public function IsActive() {
-		return $this -> conn == FALSE;
+		return $this -> conn != FALSE;
 	}
 
 	public function Close() {
-		pg_close($this -> conn);
+		if($this->IsActive())
+			pg_close($this -> conn);
+			//pg_close();
 	}
 
     public function GenerateToken($user_id) {
 
-        $result = pg_query($this -> conn, "INSERT INTO token (init_node_id) VALUES ($user_id) RETURNING token_id;");
+        $result = pg_query_params($this -> conn, "INSERT INTO token (init_node_id) VALUES ($1) RETURNING token_id;", array($user_id));
 
         if (!$result)
             throw new \Exception("Error creating new token: " . pg_last_error($this -> conn));
@@ -50,7 +51,7 @@ class SocialAvgDB {
 
 	public function GetToken($token_id) {
 
-		$result = pg_query($this -> conn, "SELECT * FROM token WHERE token_id = '$token_id';");
+		$result = pg_query_params($this -> conn, "SELECT * FROM token WHERE token_id = $1;", array($token_id));
 
 		if (!$result)
 			throw new \Exception("Error fetching token information: " . pg_last_error($this -> conn));
@@ -73,7 +74,7 @@ class SocialAvgDB {
 
 	public function LastOpenToken($user_id) {
 
-		$result = pg_query($this -> conn, "SELECT * FROM token WHERE init_node_id = $user_id AND end_node_id IS NULL;");
+		$result = pg_query_params($this -> conn, "SELECT * FROM token WHERE init_node_id = $1 AND end_node_id IS NULL;", array($user_id));
 
 		if (!$result)
 			throw new \Exception("Error checking last open token: " . pg_last_error($this -> conn));
@@ -94,7 +95,7 @@ class SocialAvgDB {
 	}
 
 	public function CommitToken($token_id, $end_user_id){
-		$result = pg_query($this -> conn, "SELECT ci_commit_transaction('$token_id', $end_user_id) AS final_value;");
+		$result = pg_query_params($this -> conn, "SELECT ci_commit_transaction($1, $2) AS final_value;", array($token_id, $end_user_id));
 
 		if (!$result)
 			throw new \Exception("Error committing token '$token_id': " . pg_last_error($this -> conn));
@@ -108,8 +109,9 @@ class SocialAvgDB {
 
 	public function GetNodeHistory($node_id)
 	{
-		$result = pg_query($this -> conn, "select token_id, end_node_id as other_node, ended, 'i' as action, init_node_value as init_value, final_init_node_value as final_value, end_node_value as other_value, final_end_node_value as other_final_value FROM token WHERE end_node_id IS NOT NULL AND init_node_id = $node_id
-UNION select token_id, init_node_id as other_node, ended, 'e' as action, end_node_value as init_value, final_end_node_value as final_value, init_node_value as other_value, final_init_node_value as other_final_value FROM token WHERE end_node_id = $node_id ORDER BY ended DESC;");
+
+		$result = pg_query_params($this -> conn, "select token_id, end_node_id as other_node, ended, 'i' as action, init_node_value as init_value, final_init_node_value as final_value, end_node_value as other_value, final_end_node_value as other_final_value FROM token WHERE end_node_id IS NOT NULL AND init_node_id = $1
+UNION select token_id, init_node_id as other_node, ended, 'e' as action, end_node_value as init_value, final_end_node_value as final_value, init_node_value as other_value, final_init_node_value as other_final_value FROM token WHERE end_node_id = $1 ORDER BY ended DESC;", array($node_id));
 
 		if (!$result)
 			throw new \Exception("Error checking node history: " . pg_last_error($this -> conn));
@@ -140,7 +142,7 @@ UNION select token_id, init_node_id as other_node, ended, 'e' as action, end_nod
 
 	public function GenerateNode($newValue)
 	{
-		$result = pg_query($this -> conn, "INSERT INTO node (value) VALUES ($newValue) RETURNING node_id;");
+		$result = pg_query_params($this -> conn, "INSERT INTO node (value) VALUES ($1) RETURNING node_id;", array($newValue));
 
 		if (!$result)
 			throw new \Exception("Error generating new node with value '$newValue': " . pg_last_error($this -> conn));
@@ -152,7 +154,7 @@ UNION select token_id, init_node_id as other_node, ended, 'e' as action, end_nod
 
 	public function AddAccount($node_id, $social_id, $identifier, $displayName, $photoUrl, $meta)
 	{
-		$result = pg_query($this -> conn, "INSERT into account (node_id,  social, identifier, display_name, photo_url, meta) VALUES ($node_id, $social_id, '$identifier', '$displayName', '$photoUrl', '$meta') RETURNING account_id;");
+		$result = pg_query_params($this -> conn, "INSERT into account (node_id,  social, identifier, display_name, photo_url, meta) VALUES ($1, $2, $3, $4, $5, $6) RETURNING account_id;", array($node_id, $social_id, $identifier, $displayName, $photoUrl, $meta));
 
 		if (!$result)
 			throw new \Exception("Error creating new account associated belonging to node '$node_id': " . pg_last_error($this -> conn));
@@ -167,7 +169,7 @@ UNION select token_id, init_node_id as other_node, ended, 'e' as action, end_nod
 	}
 
 	public function  GetNode($node_id) {
-		$result = pg_query($this -> conn, "select * from node LEFT JOIN account on node.node_id = account.node_id where node.node_id = $node_id;");
+		$result = pg_query_params($this -> conn, "SELECT * FROM node LEFT JOIN account ON node.node_id = account.node_id WHERE node.node_id = $1;", array($node_id));
 
 		if(pg_num_rows($result) > 0) {
 
@@ -203,7 +205,7 @@ UNION select token_id, init_node_id as other_node, ended, 'e' as action, end_nod
 
 	public function FindNodeByAccount($identifier)
 	{
-		$result = pg_query($this -> conn, "select node_id from account where identifier = '$identifier' LIMIT 1;");
+		$result = pg_query_params($this -> conn, "select node_id from account where identifier = $1 LIMIT 1;", array($identifier));
 
 		if (!$result)
 			throw new \Exception("Error finding a node associated with account identifier: '$identifier'': " . pg_last_error($this -> conn));

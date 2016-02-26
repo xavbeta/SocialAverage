@@ -10,8 +10,10 @@ namespace SocialAverage\SlimExtensions\Errors;
 
 class PageNotFoundException extends HttpException
 {
-    public function __construct() {
+    public $url;
+    public function __construct($url = "") {
         $message = 'Page not found.';
         $code = 404;
+        $this->url = $url;
     }
 }

@@ -36,7 +36,6 @@ class SocialLoginTemplate
         if(!$userData instanceof ErrorWrapper){
             echo "<pre>".print_r($userData, true)."</pre>";
 
-            //exit(0);
             //checking authentication
             try {
                 AuthenticationManager::Verify($app);
@@ -45,16 +44,17 @@ class SocialLoginTemplate
             }
 
             // checking account existance
-            $nm = new NodeManager();
-            $node = $nm->FindNodeByAccount($userData['identifier']);
+            $nm = NodeManager::GetInstance();
+            $node = $nm->FindNodeByAccount($userData->identifier, false);
+            echo "node: ". print_r($node, true);
 
             // it's a registration
             if(!AuthenticationManager::IsAuthenticated($app)    // is not authenticated
                 && !$node){                                     // and it's not present in db
-
+                echo "#1#";
                 // add node and account
                 $nodeId = $nm->AddNode(new UniformIntegerGenerator());
-                $nm->AddAccount($nodeId,'Facebook', $userData['identifier'], $userData['display_name'], $userData['photo_url'], $userData);
+                $nm->AddAccount($nodeId,'Facebook', $userData->identifier, $userData->displayName, $userData->photoURL, json_encode($userData));
 
                 // authenticate
                 AuthenticationManager::Authenticate($nodeId, $app);
@@ -65,18 +65,18 @@ class SocialLoginTemplate
             }
             // it's in registration phase (from addaccount page)
             else if (AuthenticationManager::IsAuthenticated($app) // it's authenticated
-                    && !$node                                        // and it's not present in db
+                    && !$node                                     // and it's not present in db
                     && $nm->GetTransactionsCount($app->node) == 0){  // has no transaction yet
-
+                    echo "#2#";
                     // add account
-                    $nm->AddAccount($app->node,'Facebook', $userData['identifier'], $userData['display_name'], $userData['photo_url'], $userData);
+                    $nm->AddAccount($app->node,'Facebook', $userData->identifier, $userData->displayName, $userData->photoURL, json_encode($userData));
 
                     // redirect to addAccount
                     $app->redirect('/addaccount');
             }
             // it's a login
             else if ($node) {
-
+                echo "#3#";
                 // authenticate
                 AuthenticationManager::Authenticate($node->node_id, $app);
 
@@ -85,22 +85,23 @@ class SocialLoginTemplate
                     echo $redirectUrl;
                     $app->redirect("$redirectUrl");
                 } else {
-                    $app->redirect($app->request->getRootUri());
+                    $app->redirect($app->urlFor("index"));
                 }
             }
             // action not allowed
             else {
+
                 throw new IllegalRequestException();
             }
 
 
-
+            /* DEACTIVATE?
             if($redirectUrl || strlen($redirectUrl) > 0) {
                 echo $redirectUrl;
                 $app->redirect("$redirectUrl");
             } else {
                 $app->redirect($app->request->getRootUri());
-            }
+            }*/
         } else {
             echo $userData->message;
         }

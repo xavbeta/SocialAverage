@@ -27,7 +27,7 @@ class InputChecker
     public static function CheckNodeId($nodeId, $checkAgainstDB = false){
         if(is_numeric($nodeId)){
             if($checkAgainstDB){
-                $nm = new NodeManager();
+                $nm = NodeManager::GetInstance();
                 if($nm->GetNode($nodeId)){
                     return true;
                 }

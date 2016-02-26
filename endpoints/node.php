@@ -17,7 +17,7 @@ use SocialAverage\Socials\SocialNetwork;
 $app->get('/node/:nodeId', function ($nodeId) use ($app) {
 
     if(InputChecker::CheckNodeId($nodeId)) {
-        $nm = new NodeManager();
+        $nm = NodeManager::GetInstance();
         echo json_encode($nm->GetNode($nodeId));
     } else {
         throw new BadRequestException();
@@ -28,7 +28,7 @@ $app->post('/node/history', function () use ($app) {
     $nodeId = DataJSONExtractor::ExtractNodeId($app->request->getBody());
 
     if(InputChecker::CheckNodeId($nodeId)) {
-        $nm = new NodeManager();
+        $nm = NodeManager::GetInstance();
         echo json_encode($nm->GetNodeHistory($nodeId));
     } else {
         throw new BadRequestException();
@@ -53,7 +53,7 @@ $app->post('/node/addaccount', function () use ($app) {
 
         $socialNetwork = SocialNetwork::ValueToName($social);
 
-        $nm = new NodeManager();
+        $nm = NodeManager::GetInstance();
         echo json_encode($nm->AddAccount($nodeId, $socialNetwork,$identifier, $displayName, $photoUrl, $meta));
     } else {
         throw new BadRequestException();
@@ -65,7 +65,7 @@ $app->post('/node/findbyaccount', function () use ($app) {
     $identifier = DataJSONExtractor::ExtractAccountIdentifier($app->request->getBody());
 
     if(InputChecker::CheckAccountIdentifier($identifier)) {
-        $nm = new NodeManager();
+        $nm = NodeManager::GetInstance();
         echo json_encode($nm->FindNodeByAccount($identifier));
     } else {
         throw new BadRequestException();
@@ -77,7 +77,7 @@ $app->post('/node/iswaiting', function () use ($app) {
     $nodeId = DataJSONExtractor::ExtractNodeId($app->request->getBody());
 
     if(InputChecker::CheckNodeId($nodeId)) {
-        $nm = new NodeManager();
+        $nm = NodeManager::GetInstance();
         echo json_encode($nm->HasOpenTransaction($nodeId));
     } else {
         throw new BadRequestException();

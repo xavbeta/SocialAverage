@@ -19,7 +19,7 @@ use SocialAverage\Nodes\NodeManager;
     <meta name="author" content="Saverio Delpriori">
 
 </head>
-<?php $nm = new NodeManager(); ?>
+<?php $nm = NodeManager::GetInstance(); ?>
 <body>
 <?php
 $node = $nm->GetNode($nodeId);
