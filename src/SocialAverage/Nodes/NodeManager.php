@@ -103,5 +103,16 @@ class NodeManager
         return $this->db->LastOpenToken($nodeId);
     }
 
+    public function GetSocialAccountList($nodeId) {
+        $node = $this->GetNode($nodeId);
+
+        $socialAccountList = array();
+        foreach ($node->accounts as $account){
+            array_push($socialAccountList, $account->social_id);
+        }
+
+        return $socialAccountList;
+    }
+
 }
 

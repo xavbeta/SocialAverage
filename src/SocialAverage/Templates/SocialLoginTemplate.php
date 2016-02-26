@@ -75,24 +75,37 @@ class SocialLoginTemplate
         LoginHandler::HandleLogin($app, $userData, $redirectUrl, SocialNetwork::Instagram);
     }
 
-    public static function getInitTemplate($redirectUrl = null) {
+    public static function getInitTemplate($redirectUrl = null, $exclude = array()) {
         $suffix = "";
         if($redirectUrl && strlen($redirectUrl) > 0 && false){
             $suffix = "?url=".$redirectUrl;
         }
+
+        if(count($exclude)< 6):
         ?>
             <html>
                 <body>
                     <ul>
-                        <li><a href="login/twitter<?php echo $suffix; ?>">login con Twitter</a></li>
-                        <li><a href="login/facebook<?php echo $suffix; ?>">login con Facebook</a></li>
-                        <li><a href="login/google<?php echo $suffix; ?>">login con Google</a></li>
-                        <li><a href="login/openid<?php echo $suffix; ?>">login con OpenID</a></li>
-                        <li><a href="login/linkedin<?php echo $suffix; ?>">login con LinkedIn</a></li>
-                        <li><a href="login/instagram<?php echo $suffix; ?>">login con Instagram</a></li>
+                        <?php if(!in_array(SocialNetwork::Twitter, $exclude)): ?><li><a href="login/twitter<?php echo $suffix; ?>">login con Twitter</a></li><?php endif; ?>
+                        <?php if(!in_array(SocialNetwork::Facebook, $exclude)): ?><li><a href="login/facebook<?php echo $suffix; ?>">login con Facebook</a></li><?php endif; ?>
+                        <?php if(!in_array(SocialNetwork::Google, $exclude)): ?><li><a href="login/google<?php echo $suffix; ?>">login con Google</a></li><?php endif; ?>
+                        <?php if(!in_array(SocialNetwork::OpenID, $exclude)): ?><li><a href="login/openid<?php echo $suffix; ?>">login con OpenID</a></li><?php endif; ?>
+                        <?php if(!in_array(SocialNetwork::LinkedIn, $exclude)): ?><li><a href="login/linkedin<?php echo $suffix; ?>">login con LinkedIn</a></li><?php endif; ?>
+                        <?php if(!in_array(SocialNetwork::Instagram, $exclude)): ?><li><a href="login/instagram<?php echo $suffix; ?>">login con Instagram</a></li><?php endif; ?>
                     </ul>
                 </body>
             </html>
         <?php
+            else:
+        ?>
+            <html>
+                <body>
+                <ul>
+                    <li>Already registered!</li>
+                </ul>
+                </body>
+            </html>
+        <?php
+            endif;
     }
 }

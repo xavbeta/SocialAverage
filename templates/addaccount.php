@@ -6,11 +6,15 @@
  * Time: 11:32
  */
 
+use SocialAverage\Nodes\NodeManager;
 use SocialAverage\Templates\SocialLoginTemplate;
 
 
-echo "<h1>Add another account?</h1>";
+$nm = NodeManager::GetInstance();
+$accountList = $nm->GetSocialAccountList($nodeId);
 
-SocialLoginTemplate::getInitTemplate($homeUrl);
+echo "<h1>Add another account?</h1>";
+SocialLoginTemplate::getInitTemplate($homeUrl, $accountList);
+
 ?>
 <p><a href="<?php echo $homeUrl; ?>">No thanks. I'm all set</a>.</p>
