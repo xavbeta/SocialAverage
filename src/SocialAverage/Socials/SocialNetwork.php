@@ -19,7 +19,7 @@ abstract class SocialNetwork extends BasicEnum
     const Instagram = 3;
     const Google = 4;
     const LinkedIn = 5;
-    const OpenId = 6;
+    const OpenID = 6;
 }
 
 abstract class BasicEnum {
