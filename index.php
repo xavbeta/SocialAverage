@@ -15,19 +15,20 @@ use SocialAverage\SlimExtensions\Errors\InvalidTokenException;
 use SocialAverage\Tokens\TokenManager;
 
 require 'vendor/autoload.php';
+require 'SlimExtensions.php';
 
 error_reporting(-1);
 ini_set('display_errors', 'On');
 
 // Instantiate a Slim application
 $app = new \Slim\Slim(array(
-    'debug' => false
+    'debug' => true
 ));
 
 $app->get('/', function () use ($app) {
     //AuthenticationManager::Authenticate(4, $app);
     AuthenticationManager::Verify($app);
-    $app->render('home.php', array("nodeId" => $app->node, "generateTokenUrl" => $app->urlFor("initiate"), "redeemTokenUrl" => $app->urlFor("redeem")));
+    $app->render('home.php', array("nodeId" => $app->node, "generateTokenUrl" => $app->urlFor("initiate"), "redeemTokenUrl" => SITE_URL.$app->request->getRootUri().$app->urlFor("redeem")));
 
 })->setName("index");
 
