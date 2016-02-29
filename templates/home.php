@@ -73,7 +73,10 @@ $node = $nm->GetNode($nodeId);
                 Current token is <strong><?php echo $ot->token_id; ?></strong>
             </p>
             <p>
-                <?php SocialSharerTemplate::getAllSharerTemplate("Condividi", "/redeem/".$ot->token_id); ?>
+
+                <?php echo SocialSharerTemplate::getAllSharerTemplate("Condividi", $redeemTokenUrl."/".$ot->token_id); ?>
+
+                <?php SocialSharerTemplate::getAllSharerTemplate("Condividi", $redeemTokenUrl."/".$ot->token_id); ?>
             </p>
         <?php else: ?>
             <p>
