@@ -27,7 +27,7 @@ abstract class SocialSharer
 
 
     protected function getOnClickSharerAttribute(){
-        return 'onclick="javascript:window.open(this.href,\'\', \'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600\');return false;"';
+        return 'onclick="javascript:window.open(this.href,\'\', \'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600\');return false;" ';
     }
 
     /**

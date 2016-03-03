@@ -25,7 +25,7 @@ class TwitterSharer extends SocialSharer
 
         $encoded_url = urlencode($url);
 
-        return '<a href="https://twitter.com/intent/tweet?text='.$encoded_url.'&hashtags=socialavg" '.$this->getOnClickSharerAttribute().'>'.$text.'</a>';
+        return '<a href="https://twitter.com/intent/tweet?text='.$encoded_url.'&hashtags=socialavg" '.$this->getOnClickSharerAttribute().' class="btn btn-social-icon btn-lg btn-twitter" ><span class="fa fa-twitter"></span></a>';
 
     }
 }

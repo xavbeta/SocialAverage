@@ -1,0 +1,44 @@
+
+.content {
+    margin:20px 0;
+}
+
+.token-action {
+    margin-bottom: 30px;
+}
+
+#current-token {
+    margin-bottom: 60px;
+}
+
+ul.social-logged {
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+
+.social-logged-item  {
+    position: relative;
+    display: inline-block;
+    list-style: none;
+    list-style-position: initial;
+    margin: 0;
+    border: 0;
+    padding: 0;
+    margin-right:20px;
+    margin-bottom: 20px;
+}
+
+.social-logged-item .social-icon {
+    position: absolute;
+    bottom: -10px;
+    left: 65px;
+}
+
+.social-logged-item .social-details {
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    color: white;
+    text-shadow: 1px 1px gray;
+}

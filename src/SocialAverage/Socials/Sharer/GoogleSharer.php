@@ -25,6 +25,6 @@ class GoogleSharer extends SocialSharer
 
         $encoded_url = urlencode($url);
 
-        return '<a href="https://plus.google.com/share?url='.$encoded_url.'" '.$this->getOnClickSharerAttribute().'>'.$text.'</a>';
+        return '<a href="https://plus.google.com/share?url='.$encoded_url.'" '.$this->getOnClickSharerAttribute().' class="btn btn-social-icon btn-lg btn-google" ><span class="fa fa-google"></span></a>';
     }
 }

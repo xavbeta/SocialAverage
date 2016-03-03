@@ -83,28 +83,49 @@ class SocialLoginTemplate
 
         if(count($exclude)< 6):
         ?>
-            <html>
-                <body>
-                    <ul>
-                        <?php if(!in_array(SocialNetwork::Twitter, $exclude)): ?><li><a href="login/twitter<?php echo $suffix; ?>">login con Twitter</a></li><?php endif; ?>
-                        <?php if(!in_array(SocialNetwork::Facebook, $exclude)): ?><li><a href="login/facebook<?php echo $suffix; ?>">login con Facebook</a></li><?php endif; ?>
-                        <?php if(!in_array(SocialNetwork::Google, $exclude)): ?><li><a href="login/google<?php echo $suffix; ?>">login con Google</a></li><?php endif; ?>
-                        <?php if(!in_array(SocialNetwork::OpenID, $exclude)): ?><li><a href="login/openid<?php echo $suffix; ?>">login con OpenID</a></li><?php endif; ?>
-                        <?php if(!in_array(SocialNetwork::LinkedIn, $exclude)): ?><li><a href="login/linkedin<?php echo $suffix; ?>">login con LinkedIn</a></li><?php endif; ?>
-                        <?php if(!in_array(SocialNetwork::Instagram, $exclude)): ?><li><a href="login/instagram<?php echo $suffix; ?>">login con Instagram</a></li><?php endif; ?>
-                    </ul>
-                </body>
-            </html>
+                <?php if(!in_array(SocialNetwork::Twitter, $exclude)): ?>
+                    <a class="btn btn-block btn-social btn-lg btn-twitter" href="login/twitter<?php echo $suffix; ?>" >
+                        <span class="fa fa-twitter"></span> Sign in with Twitter
+                    </a>
+                <?php endif; ?>
+
+                <?php if(!in_array(SocialNetwork::Facebook, $exclude)): ?>
+                    <a class="btn btn-block btn-social btn-lg btn-facebook" href="login/facebook<?php echo $suffix; ?>" >
+                        <span class="fa fa-facebook"></span> Sign in with Facebook
+                    </a>
+                <?php endif; ?>
+
+                <?php if(!in_array(SocialNetwork::Google, $exclude)): ?>
+                    <a class="btn btn-block btn-social btn-lg btn-google" href="login/google<?php echo $suffix; ?>" >
+                        <span class="fa fa-google"></span> Sign in with Google
+                    </a>
+                <?php endif; ?>
+
+                <?php if(!in_array(SocialNetwork::OpenID, $exclude)): ?>
+                    <a class="btn btn-block btn-social btn-lg btn-openid" href="login/openid<?php echo $suffix; ?>" >
+                        <span class="fa fa-openid"></span> Sign in with OpenID
+                    </a>
+                <?php endif; ?>
+
+                <?php if(!in_array(SocialNetwork::LinkedIn, $exclude)): ?>
+                    <a class="btn btn-block btn-social btn-lg btn-linkedin" href="login/linkedin<?php echo $suffix; ?>" >
+                        <span class="fa fa-linkedin"></span> Sign in with LinkedIn
+                    </a>
+                <?php endif; ?>
+
+                <?php if(!in_array(SocialNetwork::Instagram, $exclude)): ?>
+                    <a class="btn btn-block btn-social btn-lg btn-instagram" href="login/instagram<?php echo $suffix; ?>" >
+                        <span class="fa fa-instagram"></span> Sign in with Instagram
+                    </a>
+                <?php endif; ?>
+
         <?php
             else:
         ?>
-            <html>
-                <body>
-                <ul>
-                    <li>Already registered!</li>
-                </ul>
-                </body>
-            </html>
+                <p>
+                    Already registered!
+                </p>
+
         <?php
             endif;
     }

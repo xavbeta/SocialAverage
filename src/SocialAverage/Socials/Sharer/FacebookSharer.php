@@ -25,7 +25,8 @@ class FacebookSharer extends SocialSharer
 
         $encoded_url = urlencode($url);
 
-        return '<a href="https://www.facebook.com/sharer/sharer.php?u='.$encoded_url.'" '.$this->getOnClickSharerAttribute().' >'.$text.'</a>';
+        return '<a href="https://www.facebook.com/sharer/sharer.php?u='.$encoded_url.'" '.$this->getOnClickSharerAttribute().' class="btn btn-social-icon btn-lg btn-facebook" ><span class="fa fa-facebook"></span></a>';
+
 
 
     }

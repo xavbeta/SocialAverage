@@ -25,7 +25,7 @@ class LinkedInSharer extends SocialSharer
 
         $encoded_url = urlencode($url);
 
-        return '<a href="https://www.linkedin.com/shareArticle?mini=true&url='.$encoded_url.'&title='.$text.'&summary=&source=" '.$this->getOnClickSharerAttribute().'>'.$text.'</a>';
+        return '<a href="https://www.linkedin.com/shareArticle?mini=true&url='.$encoded_url.'&title='.$text.'&summary=&source=" '.$this->getOnClickSharerAttribute().' class="btn btn-social-icon btn-lg btn-linkedin" ><span class="fa fa-linkedin"></span></a>';
 
     }
 }

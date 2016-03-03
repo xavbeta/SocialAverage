@@ -124,7 +124,7 @@ UNION select token_id, init_node_id as other_node, ended, 'e' as action, end_nod
 			$t -> token_id = $row['token_id'];
 			$t -> node_id = $node_id;
 			$t -> other_node_id = $row['other_node'];
-			$t -> ended = $row['ended'];
+			$t -> ended = date_parse($row['ended']);
 			$t -> is_initiator = strcmp($row['action'], "i") == 0 ? true : false;
 			$t -> init_value = $row['init_value'];
 			$t -> final_value = $row['final_value'];

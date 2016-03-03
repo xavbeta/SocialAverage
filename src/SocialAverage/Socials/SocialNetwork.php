@@ -69,7 +69,7 @@ abstract class BasicEnum {
     }
 
     public static function ValueToName($value) {
-        if(self::isValidValue($value)) {
+        if(self::isValidValue($value + 0)) {
             $constants = self::getConstants();
             $keys = array_map('strtolower', array_keys($constants));
             $values = array_values($constants);

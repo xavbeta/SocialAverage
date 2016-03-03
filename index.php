@@ -22,7 +22,7 @@ ini_set('display_errors', 'On');
 
 // Instantiate a Slim application
 $app = new \Slim\Slim(array(
-    'debug' => true
+    'debug' => false
 ));
 
 $app->get('/', function () use ($app) {
@@ -50,7 +50,7 @@ $app->post('/commit', function () use ($app) {
     AuthenticationManager::Verify($app);
 
     $tokenId = DataPostExtractor::ExtractTokenId($app->request);
-    print_r($tokenId);
+    echo "<pre>".print_r($tokenId, true)."</pre>";
 
     if(InputChecker::CheckTokenId($tokenId)) {
         $tm = new TokenManager();

@@ -37,12 +37,12 @@ class SocialSharerTemplate
     }
 
     public static function getAllSharerTemplate($text = "",$url = "") {
-        return "<ul>\n".
-            "<li>".static::getTwitterSharer($text, $url)."</li>\n".
-            "<li>".static::getFacebookSharer($text, $url)."</li>\n".
-            "<li>".static::getGoogleSharer($text, $url)."</li>\n".
-            "<li>".static::getLinkedInSharer($text, $url)."</li>\n".
-            "<li>".static::getMailSharer($text, $url)."</li>\n".
-        "</ul>";
+        return "<div class='social-sharer'>\n".
+            static::getTwitterSharer($text, $url)."\n".
+            static::getFacebookSharer($text, $url)."\n".
+            static::getGoogleSharer($text, $url)."\n".
+            static::getLinkedInSharer($text, $url)."\n".
+            static::getMailSharer($text, $url)."\n".
+        "</div>";
     }
 }

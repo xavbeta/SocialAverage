@@ -9,33 +9,43 @@ use SocialAverage\Nodes\NodeManager;
 
 ?>
 
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
+<?php require 'base/header.php'; ?>
 
-    <title>Collective Intelligence - Redeem Token</title>
-    <meta name="description" content="A collective intelligence serious game">
-    <meta name="author" content="Saverio Delpriori">
-
-</head>
 <?php $nm = NodeManager::GetInstance(); ?>
-<body>
 <?php
 $node = $nm->GetNode($nodeId);
 ?>
 
-    <div>
-        <h2>Redeem token</h2>
-        <form name="modulo" action="<?php echo $commitUrl; ?>" method="post">
-            <label>
-                <input type="text" value="<?php echo $token; ?>" name="token"/>
-            </label>
-            <input type="submit" value="redeem" />
-        </form>
-    </div>
 
 
-</body>
-</html>
+<div class="header clearfix">
+    <nav>
+        <ul class="nav nav-pills pull-right">
+            <li role="presentation"><a href="/">Home</a></li>
+            <li role="presentation"><a href="/info">Info</a></li>
+        </ul>
+    </nav>
+    <h3 class="text-muted">Collective Intelligence</h3>
+</div>
 
+<div class="jumbotron">
+    <p>Redeem a token:</p>
+    <form name="module" action="<?php echo $commitUrl; ?>" method="post">
+        <div id="redeem-box-token" class="token-action">
+                <div class="form-group">
+                    <label class="control-label col-sm-2" for="token">Token:</label>
+                    <div class="col-sm-10">
+                        <input type="text" value="<?php echo $token; ?>" class="form-control" id="token" placeholder="Enter token" name="token" />
+                    </div>
+                </div>
+        </div>
+        <div class="token-action">
+                <div class="form-group">
+                    <input class="btn btn-lg btn-primary" type="submit" value="redeem" />
+                </div>
+        </div>
+    </form>
+</div>
+
+
+<?php require 'base/footer.php'; ?>

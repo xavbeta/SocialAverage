@@ -25,6 +25,6 @@ class MailSharer extends SocialSharer
 
         $encoded_url = urlencode($url);
 
-        return '<a href="mailto:?&subject=Play with us&body=that\'s%20my%20value%3A'.$encoded_url.'" '.$this->getOnClickSharerAttribute().'>'.$text.'</a>';
+        return '<a href="mailto:?&subject=Play with us&body=that\'s%20my%20value%3A'.$encoded_url.'" '.$this->getOnClickSharerAttribute().' class="btn btn-social-icon btn-lg btn-reddit" ><img src="assets/img/mailto.png" class="mailto-icon"/></a>';
     }
 }
