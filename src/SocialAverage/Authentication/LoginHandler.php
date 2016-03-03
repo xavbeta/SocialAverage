@@ -43,11 +43,11 @@ class LoginHandler
 
         // it's the registration
         if(self::IsFirstRegistration($app, $node)){
-            self::DoFirstRegistration($app, $userData, $social);
+            self::DoFirstRegistration($app, $userData, $social, $redirectUrl);
         }
         // it's in registration phase (from addaccount page)
         else if (self::IsSecondaryRegistration($app, $node)){
-            self::DoSecondaryRegistration($app, $userData, $social);
+            self::DoSecondaryRegistration($app, $userData, $social, $redirectUrl);
         }
         // it's a login
         else if (self::IsLogin($node)) {
@@ -85,7 +85,7 @@ class LoginHandler
                 && !$node;                                      // and it's not present in db
     }
 
-    private static function DoFirstRegistration(Slim $app, $userData, $social) {
+    private static function DoFirstRegistration(Slim $app, $userData, $social, $redirectUrl = null) {
         echo "#1#";
 
         // add node and account
@@ -97,7 +97,7 @@ class LoginHandler
         AuthenticationManager::Authenticate($nodeId, $app);
 
         // redirect to addAccount
-        $app->redirect('/addaccount');
+        $app->redirect('/addaccount?url='.$redirectUrl);
     }
 
     private static function IsSecondaryRegistration($app, $node) {
@@ -107,7 +107,7 @@ class LoginHandler
                 && $nm->GetTransactionsCount($app->node) == 0;  //no transaction yes
     }
 
-    private static function DoSecondaryRegistration(Slim $app, $userData, $social)
+    private static function DoSecondaryRegistration(Slim $app, $userData, $social, $redirectUrl = null)
     {
         echo "#2#";
 
@@ -116,7 +116,7 @@ class LoginHandler
         $nm->AddAccount($app->node, $social, $userData->identifier, $userData->displayName, $userData->photoURL, json_encode($userData));
 
         // redirect to addAccount
-        $app->redirect('/addaccount');
+        $app->redirect('/addaccount?url='.$redirectUrl);
     }
 
     private static function IsLogin($node)

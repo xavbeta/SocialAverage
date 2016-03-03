@@ -35,11 +35,12 @@ $app->get('/', function () use ($app) {
 $app->get('/addaccount', function () use ($app) {
     AuthenticationManager::Verify($app);
 
-    $app->render('addaccount.php', array("nodeId" => $app->node, "homeUrl" => $app->urlFor("index")));
+    $app->render('addaccount.php', array("nodeId" => $app->node, "homeUrl" => $app->urlFor("index"), "redirectUrl" => $app->request->get('url')));
 
 })->setName("addaccount");
 
 $app->get('/redeem(/:token)', function ($token = null) use ($app) {
+
     AuthenticationManager::Verify($app);
     $app->render('redeem.php', array("nodeId" => $app->node, "token"=>$token, "commitUrl" => $app->urlFor("commit")));
 

@@ -12,6 +12,7 @@ use SocialAverage\Templates\SocialLoginTemplate;
 
 $nm = NodeManager::GetInstance();
 $accountList = $nm->GetSocialAccountList($nodeId);
+$nextUrl = isset($redirectUrl) && strlen($redirectUrl) > 0  ? $redirectUrl : $homeUrl;
 ?>
 
 <?php require 'base/header.php'; ?>
@@ -28,10 +29,10 @@ $accountList = $nm->GetSocialAccountList($nodeId);
     <div class="jumbotron">
         <p>Add another account?</p>
         <div class="token-action">
-            <?php SocialLoginTemplate::getInitTemplate($homeUrl, $accountList); ?>
+            <?php SocialLoginTemplate::getInitTemplate($nextUrl, $accountList); ?>
         </div>
         <div class="token-action">
-            <a class="btn btn-lg btn-primary" href="<?php echo $homeUrl; ?>">No thanks. I'm all set</a>
+            <a class="btn btn-lg btn-primary" href="<?php echo $nextUrl; ?>">No thanks. I'm all set</a>
         </div>
     </div>
 <?php require 'base/footer.php'; ?>

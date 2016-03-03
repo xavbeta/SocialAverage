@@ -77,7 +77,7 @@ class SocialLoginTemplate
 
     public static function getInitTemplate($redirectUrl = null, $exclude = array()) {
         $suffix = "";
-        if($redirectUrl && strlen($redirectUrl) > 0 && false){
+        if($redirectUrl && strlen($redirectUrl) > 0){
             $suffix = "?url=".$redirectUrl;
         }
 

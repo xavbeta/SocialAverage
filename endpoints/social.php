@@ -4,7 +4,8 @@ use SocialAverage\SlimExtensions\Errors\PageNotFoundException;
 use SocialAverage\Templates\SocialLoginTemplate;
 
 $app->get('/login', function () use ($app) {
-    $app->render('login.php', array("redirect_url" => $app->request()->get('url')));
+    $redirectUrl = $app->request()->get('url');
+    $app->render('login.php', array("redirect_url" => $redirectUrl));
 })->setName('login');
 
 $app->get('/login/:social', function ($social) use ($app) {
@@ -32,6 +33,6 @@ $app->get('/login/:social', function ($social) use ($app) {
             break;
         default:
             //echo $social."------".$redirectUrl;
-            throw new PageNotFoundException($app->request->getUrl() + $redirectUrl);
+            throw new PageNotFoundException($app->request->getUrl().$redirectUrl);
     }
 });
