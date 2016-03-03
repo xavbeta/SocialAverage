@@ -60,25 +60,27 @@ $node = $nm->GetNode($nodeId);
         <p><a class="btn btn-lg btn-primary" onclick="$('#value-history').removeClass('hidden');return false;" href="#" role="button">Show history</a></p>
         <div id="value-history" class="hidden" >
             <h3>Value history</h3>
-            <ul class="list-group" >
+
                 <?php
                     $history = $nm->GetNodeHistory($nodeId);
 
                     if(!$history || count($history) < 1): ?>
-                        <li class="list-group-item">
-                            You have no transaction completed yet!
-                        </li>
-                <?php else:
-                /*
-                        foreach($history as $historyEntry): ?>
-                        <li class="list-group-item">
-                            with node: <?php $historyEntry->other_node_id; ?>
-                            as <?php echo ($historyEntry->is_initiator ? "sender":"recevier"); ?>
-                            value: <?php echo $historyEntry->init_value; ?> -> <?php echo $historyEntry->final_value; ?>
-                            token: <?php echo $historyEntry -> token_id; ?>
-                        </li>
-                        <?php endforeach; */?>
-
+                        <ul class="list-group" >
+                            <li class="list-group-item">
+                                You have no transaction completed yet!
+                            </li>
+                        </ul>
+                <?php else: ?>
+                        <!--<ul class="list-group" >
+                        <?php foreach($history as $historyEntry): ?>
+                            <li class="list-group-item">
+                                with node: <?php $historyEntry->other_node_id; ?>
+                                as <?php echo ($historyEntry->is_initiator ? "sender":"recevier"); ?>
+                                value: <?php echo $historyEntry->init_value; ?> -> <?php echo $historyEntry->final_value; ?>
+                                token: <?php echo $historyEntry -> token_id; ?>
+                            </li>
+                        <?php endforeach; ?>
+                        </ul>-->
                         <script type="text/javascript" src="/assets/js/jquery.canvasjs.min.js"></script>
                         <script type="text/javascript">
                             $(function () {
@@ -104,10 +106,10 @@ $node = $nm->GetNode($nodeId);
 
                             });
                         </script>
-                        <div id="value-chart" style="height: 300px; width: 100%;"></div>
+                        <div id="value-chart" style="height:450px; width: 100%;"></div>
 
                 <?php endif; ?>
-            </ul>
+
         </div>
 
     </div>
