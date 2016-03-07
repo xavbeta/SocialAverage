@@ -28,7 +28,7 @@ $app = new \Slim\Slim(array(
 $app->get('/', function () use ($app) {
     //AuthenticationManager::Authenticate(4, $app);
     AuthenticationManager::Verify($app);
-    $app->render('home.php', array("nodeId" => $app->node, "generateTokenUrl" => $app->urlFor("initiate"), "redeemTokenUrl" => SITE_URL.$app->request->getRootUri().$app->urlFor("redeem")));
+    $app->render('home.php', array("nodeId" => $app->node, "generateTokenUrl" => $app->urlFor("initiate"), "redeemTokenUrl" => rtrim(SITE_URL, '/').$app->urlFor("redeem")));
 
 })->setName("index");
 

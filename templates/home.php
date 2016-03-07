@@ -20,6 +20,8 @@ $node = $nm->GetNode($nodeId);
 ?>
 
 
+    <script src="assets/js//clipboard.min.js"></script>
+    <script type="application/javascript">new Clipboard('.token_btn');</script>
 
     <div class="header clearfix">
         <nav>
@@ -123,9 +125,13 @@ $node = $nm->GetNode($nodeId);
                 <p>
                     Your current token is
                 </p>
-                <h1>
-                    <?php echo $ot->token_id; ?>
-                </h1>
+                <p>
+                    <input id="token_url" class="form-control input-lg" value="<?php echo $redeemTokenUrl."/".$ot->token_id; ?>" />
+                </p>
+                <!-- Trigger -->
+                <button class="token_btn btn btn-lg btn-primary" data-clipboard-target="#token_url">
+                    Copy to clipboard
+                </button>
             </div>
             <div id="share-token" class="token-action">
                 <p class="lead">
