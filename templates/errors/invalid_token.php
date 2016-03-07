@@ -7,24 +7,24 @@
  */
 ?>
 
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
+<?php require __DIR__ .'/../base/header.php'; ?>
 
-    <title>Collective Intelligence - Invalid Token</title>
-    <meta name="description" content="A collective intelligence serious game">
-    <meta name="author" content="Saverio Delpriori">
+    <div class="header clearfix">
+        <nav>
+            <ul class="nav nav-pills pull-right">
+                <li role="presentation"><a href="/">Home</a></li>
+                <li role="presentation"><a href="/info">Info</a></li>
+            </ul>
+        </nav>
+        <h3 class="text-muted">Collective Intelligence</h3>
+    </div>
 
-</head>
-<body>
+    <div class="jumbotron">
+        <h1>Invalid token!</h1>
+        <p>Provided token <?php echo $token? "($token) ":"" ?>is not a valid one!</p>
+        <p><a class="btn btn-lg btn-primary"  href="<?php echo $homeUrl; ?>">Go back home</a></p>
+    </div>
 
-<div>
-    <h2>Invalid token!</h2>
-    <p>Provided token <?php echo $token? "($token) ":"" ?>is not a valid one!</p>
-    <p><a href="<?php echo $homeUrl; ?>">Go back home</a>.</p>
-</div>
 
-</body>
-</html>
 
+<?php require __DIR__ .'/../base/footer.php'; ?>

@@ -88,7 +88,7 @@ $app->get('/invalid(/:token)', function ($token = null) use ($app) {
 
 $app->get('/illegalrequest', function () use ($app) {
 
-    $app->render('errors/illegal_request.php');
+    $app->render('errors/illegal_request.php', array("homeUrl" => $app->urlFor("index")));
 
 })->setName("illegal");
 

@@ -7,24 +7,25 @@
  */
 ?>
 
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
 
-    <title>Collective Intelligence - Illegal request</title>
-    <meta name="description" content="A collective intelligence serious game">
-    <meta name="author" content="Saverio Delpriori">
+<?php require __DIR__ .'/../base/header.php'; ?>
 
-</head>
-<body>
+    <div class="header clearfix">
+        <nav>
+            <ul class="nav nav-pills pull-right">
+                <li role="presentation"><a href="/">Home</a></li>
+                <li role="presentation"><a href="/info">Info</a></li>
+            </ul>
+        </nav>
+        <h3 class="text-muted">Collective Intelligence</h3>
+    </div>
 
-<div>
-    <h2>Illegal request!</h2>
-    <p>You are not allowed to do that. Sorry!</p>
-    <p><a href="<?php echo $homeUrl; ?>">Go back home</a>.</p>
-</div>
+    <div class="jumbotron">
+        <h1>Illegal request!</h1>
+        <p>You are not allowed to do that. Sorry!</p>
+        <p><a class="btn btn-lg btn-primary"  href="<?php echo $homeUrl; ?>">Go back home</a></p>
+    </div>
 
-</body>
-</html>
 
+
+<?php require __DIR__ .'/../base/footer.php'; ?>

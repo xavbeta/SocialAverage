@@ -13,11 +13,28 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <meta name="description" content="A collective intelligence serious game">
-    <meta name="author" content="Saverio Delpriori">
-
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <title>Collective Intelligence</title>
+    <meta name="description" content="A collective intelligence serious game">
+    <meta name="author" content="Universit&agrave; degli Studi di Urbino">
+
+    <!-- Twitter Card data -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="@publisher_handle">
+    <meta name="twitter:title" content="Collective Intelligence">
+    <meta name="twitter:description" content="A collective intelligence serious game">
+    <meta name="twitter:creator" content="@author_handle">
+    <meta name="twitter:image" content="http://chatbot.clouduino.eu/assets/img/socialavg_logo.png">
+
+    <!-- Open Graph data -->
+    <meta property="og:title" content="Collective Intelligence" />
+    <meta property="og:type" content="profile" />
+    <meta property="og:url" content="http://chatbot.clouduino.eu/login?url=http%3A%2F%2Fchatbot.clouduino.eu%2F%2F" />
+    <meta property="og:image" content="http://chatbot.clouduino.eu/assets/img/socialavg_logo.png" />
+    <meta property="og:description" content="A collective intelligence serious game" />
+    <meta property="og:site_name" content="Collective Intelligence" />
+    <meta property="fb:app_id" content="471722693029141" />
+    <meta property="fb:admins" content="612636438" />
 
     <!-- Bootstrap -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
@@ -46,6 +63,8 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"
             integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS"
             crossorigin="anonymous"></script>
+
+
 </head>
 <body>
 
