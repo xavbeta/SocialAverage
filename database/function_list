@@ -1,0 +1,4 @@
+192; 1255 189045 FUNCTION public ci_commit_transaction(uuid, integer) postgres
+190; 1255 189019 FUNCTION public ci_save_last_node_history_value() postgres
+189; 1255 189031 FUNCTION public ci_update_ended_column() postgres
+191; 1255 188982 FUNCTION public ci_update_modified_column() postgres

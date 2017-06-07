@@ -1,0 +1,307 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataSource name="PostgreSQL - collective_intelligence@193.204.198.5">
+  <database-model serializer="dbm" rdbms="POSTGRES" format-version="4.2">
+    <root id="1"/>
+    <database id="2" parent="1" name="collective_intelligence">
+      <Visible>1</Visible>
+    </database>
+    <schema id="3" parent="2" name="public">
+      <ObjectId>2200</ObjectId>
+      <Comment>standard public schema</Comment>
+      <IntrospectionTimestamp>2016-02-10.16:31:01.022</IntrospectionTimestamp>
+      <IntrospectionStateNumber>848568</IntrospectionStateNumber>
+      <Visible>1</Visible>
+    </schema>
+    <sequence id="4" parent="3" name="account_acount_id_seq">
+      <ObjectId>188994</ObjectId>
+      <StateNumber>847845</StateNumber>
+    </sequence>
+    <sequence id="5" parent="3" name="node_node_id_seq">
+      <ObjectId>188974</ObjectId>
+      <StateNumber>847835</StateNumber>
+    </sequence>
+    <table id="6" parent="3" name="account">
+      <ObjectId>188996</ObjectId>
+      <StateNumber>848568</StateNumber>
+    </table>
+    <table id="7" parent="3" name="node">
+      <ObjectId>188976</ObjectId>
+      <StateNumber>847866</StateNumber>
+    </table>
+    <table id="8" parent="3" name="token">
+      <ObjectId>188969</ObjectId>
+      <StateNumber>847930</StateNumber>
+    </table>
+    <routine id="9" parent="3" name="ci_commit_transaction">
+      <ObjectId>189045</ObjectId>
+      <StateNumber>847938</StateNumber>
+      <RoutineKind>function</RoutineKind>
+    </routine>
+    <routine id="10" parent="3" name="ci_save_last_node_history_value">
+      <ObjectId>189019</ObjectId>
+      <StateNumber>847920</StateNumber>
+      <RoutineKind>function</RoutineKind>
+    </routine>
+    <routine id="11" parent="3" name="ci_update_ended_column">
+      <ObjectId>189031</ObjectId>
+      <StateNumber>847858</StateNumber>
+      <RoutineKind>function</RoutineKind>
+    </routine>
+    <routine id="12" parent="3" name="ci_update_modified_column">
+      <ObjectId>188982</ObjectId>
+      <StateNumber>847856</StateNumber>
+      <RoutineKind>function</RoutineKind>
+    </routine>
+    <routine id="13" parent="3" name="uuid_generate_v1">
+      <ObjectId>188964</ObjectId>
+      <StateNumber>847832</StateNumber>
+      <RoutineKind>function</RoutineKind>
+    </routine>
+    <routine id="14" parent="3" name="uuid_generate_v1mc">
+      <ObjectId>188965</ObjectId>
+      <StateNumber>847832</StateNumber>
+      <RoutineKind>function</RoutineKind>
+    </routine>
+    <routine id="15" parent="3" name="uuid_generate_v3">
+      <ObjectId>188966</ObjectId>
+      <StateNumber>847832</StateNumber>
+      <RoutineKind>function</RoutineKind>
+    </routine>
+    <routine id="16" parent="3" name="uuid_generate_v4">
+      <ObjectId>188967</ObjectId>
+      <StateNumber>847832</StateNumber>
+      <RoutineKind>function</RoutineKind>
+    </routine>
+    <routine id="17" parent="3" name="uuid_generate_v5">
+      <ObjectId>188968</ObjectId>
+      <StateNumber>847832</StateNumber>
+      <RoutineKind>function</RoutineKind>
+    </routine>
+    <routine id="18" parent="3" name="uuid_nil">
+      <ObjectId>188959</ObjectId>
+      <StateNumber>847832</StateNumber>
+      <RoutineKind>function</RoutineKind>
+    </routine>
+    <routine id="19" parent="3" name="uuid_ns_dns">
+      <ObjectId>188960</ObjectId>
+      <StateNumber>847832</StateNumber>
+      <RoutineKind>function</RoutineKind>
+    </routine>
+    <routine id="20" parent="3" name="uuid_ns_oid">
+      <ObjectId>188962</ObjectId>
+      <StateNumber>847832</StateNumber>
+      <RoutineKind>function</RoutineKind>
+    </routine>
+    <routine id="21" parent="3" name="uuid_ns_url">
+      <ObjectId>188961</ObjectId>
+      <StateNumber>847832</StateNumber>
+      <RoutineKind>function</RoutineKind>
+    </routine>
+    <routine id="22" parent="3" name="uuid_ns_x500">
+      <ObjectId>188963</ObjectId>
+      <StateNumber>847832</StateNumber>
+      <RoutineKind>function</RoutineKind>
+    </routine>
+    <column id="23" parent="6" name="node_id">
+      <DataType>integer|0</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>847845</StateNumber>
+    </column>
+    <column id="24" parent="6" name="meta">
+      <DataType>text|0</DataType>
+      <StateNumber>847845</StateNumber>
+    </column>
+    <column id="25" parent="6" name="social">
+      <DataType>smallint|0</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>847853</StateNumber>
+      <DefaultExpression>0</DefaultExpression>
+    </column>
+    <column id="26" parent="6" name="account_id">
+      <DataType>integer|0</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>848530</StateNumber>
+      <DefaultExpression>nextval(&apos;account_acount_id_seq&apos;::regclass)</DefaultExpression>
+    </column>
+    <column id="27" parent="6" name="identifier">
+      <DataType>text|0</DataType>
+      <StateNumber>848566</StateNumber>
+    </column>
+    <column id="28" parent="6" name="photo_url">
+      <DataType>text|0</DataType>
+      <StateNumber>848567</StateNumber>
+    </column>
+    <column id="29" parent="6" name="display_name">
+      <DataType>varchar(255)|0</DataType>
+      <StateNumber>848568</StateNumber>
+    </column>
+    <index id="30" parent="6" name="account_pkey">
+      <ObjectId>189003</ObjectId>
+      <ColNames>acount_id</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <key id="31" parent="6" name="account_pkey">
+      <ColNames>node_id</ColNames>
+      <UnderlyingIndexName>account_pkey</UnderlyingIndexName>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="32" parent="6" name="account_node_id_fkey">
+      <ColNames>meta</ColNames>
+      <RefTableName>node</RefTableName>
+      <RefKeyName>node_pkey</RefKeyName>
+      <RefColNames>node_id</RefColNames>
+    </foreign-key>
+    <column id="33" parent="7" name="node_id">
+      <DataType>integer|0</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>847835</StateNumber>
+      <DefaultExpression>nextval(&apos;node_node_id_seq&apos;::regclass)</DefaultExpression>
+    </column>
+    <column id="34" parent="7" name="value">
+      <DataType>double precision|0</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>847835</StateNumber>
+    </column>
+    <column id="35" parent="7" name="last_change">
+      <DataType>timestamp|0</DataType>
+      <StateNumber>847848</StateNumber>
+    </column>
+    <index id="36" parent="7" name="node_pkey">
+      <ObjectId>188980</ObjectId>
+      <ColNames>node_id</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <key id="37" parent="7" name="node_pkey">
+      <ColNames>node_id</ColNames>
+      <UnderlyingIndexName>node_pkey</UnderlyingIndexName>
+      <Primary>1</Primary>
+    </key>
+    <column id="38" parent="8" name="token_id">
+      <DataType>uuid|0</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>847833</StateNumber>
+      <DefaultExpression>uuid_generate_v4()</DefaultExpression>
+    </column>
+    <column id="39" parent="8" name="init_node_id">
+      <DataType>integer|0</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>847838</StateNumber>
+    </column>
+    <column id="40" parent="8" name="created">
+      <DataType>timestamp|0</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>847833</StateNumber>
+      <DefaultExpression>statement_timestamp()</DefaultExpression>
+    </column>
+    <column id="41" parent="8" name="end_node_id">
+      <DataType>integer|0</DataType>
+      <StateNumber>847839</StateNumber>
+    </column>
+    <column id="42" parent="8" name="ended">
+      <DataType>timestamp|0</DataType>
+      <StateNumber>847840</StateNumber>
+    </column>
+    <column id="43" parent="8" name="init_node_value">
+      <DataType>double precision|0</DataType>
+      <StateNumber>847927</StateNumber>
+    </column>
+    <column id="44" parent="8" name="end_node_value">
+      <DataType>double precision|0</DataType>
+      <StateNumber>847928</StateNumber>
+    </column>
+    <column id="45" parent="8" name="final_init_node_value">
+      <DataType>double precision|0</DataType>
+      <StateNumber>847929</StateNumber>
+    </column>
+    <column id="46" parent="8" name="final_end_node_value">
+      <DataType>double precision|0</DataType>
+      <StateNumber>847930</StateNumber>
+    </column>
+    <foreign-key id="47" parent="8" name="init_node_id_fk">
+      <ColNames>init_node_id</ColNames>
+      <RefTableName>node</RefTableName>
+      <RefKeyName>node_pkey</RefKeyName>
+      <RefColNames>node_id</RefColNames>
+    </foreign-key>
+    <foreign-key id="48" parent="8" name="token_end_node_id_fkey">
+      <ColNames>end_node_id</ColNames>
+      <RefTableName>node</RefTableName>
+      <RefKeyName>node_pkey</RefKeyName>
+      <RefColNames>node_id</RefColNames>
+    </foreign-key>
+    <argument id="49" parent="9" name="token_uuid">
+      <DataType>uuid|0</DataType>
+    </argument>
+    <argument id="50" parent="9" name="end_node">
+      <DataType>integer|0</DataType>
+    </argument>
+    <argument id="51" parent="9">
+      <ArgumentDirection>R</ArgumentDirection>
+      <DataType>double precision|0</DataType>
+    </argument>
+    <argument id="52" parent="10">
+      <ArgumentDirection>R</ArgumentDirection>
+      <DataType>trigger|0</DataType>
+    </argument>
+    <argument id="53" parent="11">
+      <ArgumentDirection>R</ArgumentDirection>
+      <DataType>trigger|0</DataType>
+    </argument>
+    <argument id="54" parent="12">
+      <ArgumentDirection>R</ArgumentDirection>
+      <DataType>trigger|0</DataType>
+    </argument>
+    <argument id="55" parent="13">
+      <ArgumentDirection>R</ArgumentDirection>
+      <DataType>uuid|0</DataType>
+    </argument>
+    <argument id="56" parent="14">
+      <ArgumentDirection>R</ArgumentDirection>
+      <DataType>uuid|0</DataType>
+    </argument>
+    <argument id="57" parent="15" name="namespace">
+      <DataType>uuid|0</DataType>
+    </argument>
+    <argument id="58" parent="15" name="name">
+      <DataType>text|0</DataType>
+    </argument>
+    <argument id="59" parent="15">
+      <ArgumentDirection>R</ArgumentDirection>
+      <DataType>uuid|0</DataType>
+    </argument>
+    <argument id="60" parent="16">
+      <ArgumentDirection>R</ArgumentDirection>
+      <DataType>uuid|0</DataType>
+    </argument>
+    <argument id="61" parent="17" name="namespace">
+      <DataType>uuid|0</DataType>
+    </argument>
+    <argument id="62" parent="17" name="name">
+      <DataType>text|0</DataType>
+    </argument>
+    <argument id="63" parent="17">
+      <ArgumentDirection>R</ArgumentDirection>
+      <DataType>uuid|0</DataType>
+    </argument>
+    <argument id="64" parent="18">
+      <ArgumentDirection>R</ArgumentDirection>
+      <DataType>uuid|0</DataType>
+    </argument>
+    <argument id="65" parent="19">
+      <ArgumentDirection>R</ArgumentDirection>
+      <DataType>uuid|0</DataType>
+    </argument>
+    <argument id="66" parent="20">
+      <ArgumentDirection>R</ArgumentDirection>
+      <DataType>uuid|0</DataType>
+    </argument>
+    <argument id="67" parent="21">
+      <ArgumentDirection>R</ArgumentDirection>
+      <DataType>uuid|0</DataType>
+    </argument>
+    <argument id="68" parent="22">
+      <ArgumentDirection>R</ArgumentDirection>
+      <DataType>uuid|0</DataType>
+    </argument>
+  </database-model>
+</dataSource>
